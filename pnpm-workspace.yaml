@@ -1,7 +1,6 @@
 packages:
   - apps/*
   - packages/*
-  - packages/create-discord-bot/template/**/*
 
 autoInstallPeers: false
 
