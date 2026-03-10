@@ -110,6 +110,7 @@ export default defineConfig(
 			'**/storybook-static/',
 			'**/.next/',
 			'**/shiki.bundle.ts',
+			'examples/',
 		],
 	},
 	commonRuleset,

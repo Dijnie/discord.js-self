@@ -1,0 +1,9 @@
+{
+	"name": "@discord-selfbot-sdk/examples",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"dependencies": {
+		"@discord-selfbot-sdk/bot": "workspace:*"
+	}
+}

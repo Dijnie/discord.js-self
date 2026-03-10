@@ -32,7 +32,7 @@ The `@discordjs/rest` package handling HTTP requests in @discord-selfbot-sdk/bot
 
 ```js title="index.js" lineNumbers
 const { ProxyAgent } = require('undici'); // [!code word:ProxyAgent]
-const { Client } = require('@discord-selfbot-sdk/bot');
+import { Client } from '@discord-selfbot-sdk/bot';
 
 const client = new Client({
 	// ...other client options
@@ -55,7 +55,7 @@ To set up a proxy for WebSocket, you can use the `global-agent` package. You wil
 
 ```js title="index.js" lineNumbers
 const { ProxyAgent } = require('undici');
-const { Client } = require('@discord-selfbot-sdk/bot');
+import { Client } from '@discord-selfbot-sdk/bot';
 const { bootstrap } = require('global-agent'); // [!code ++:5]
 
 bootstrap(); // [!code word:bootstrap]

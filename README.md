@@ -57,7 +57,7 @@ npm install @discord-selfbot-sdk/bot@latest
 ## Example
 
 ```js
-const { Client } = require('@discord-selfbot-sdk/bot');
+import { Client } from '@discord-selfbot-sdk/bot';
 const client = new Client();
 
 client.on('ready', async () => {

@@ -377,6 +377,12 @@ importers:
         specifier: ^4.67.0
         version: 4.67.0(bufferutil@4.1.0)
 
+  examples:
+    dependencies:
+      '@discord-selfbot-sdk/bot':
+        specifier: workspace:*
+        version: link:../packages/bot
+
   packages/api-extractor:
     dependencies:
       '@discordjs/api-extractor-model':
