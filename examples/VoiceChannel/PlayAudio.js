@@ -10,8 +10,8 @@ Install:
 - ffmpeg (install and add to your system environment)
 */
 
-const { Client } = require('@discord-selfbot-sdk/bot');
-const ytdl = require('@distube/ytdl-core'); // better than ytdl-core
+import { Client } from '@discord-selfbot-sdk/bot';
+import ytdl from '@distube/ytdl-core'; // better than ytdl-core
 const client = new Client();
 
 client.on('ready', async (client) => {
@@ -54,4 +54,4 @@ client.on('ready', async (client) => {
 	}, 30_000);
 });
 
-client.login('token');
+client.login(process.env.DISCORD_TOKEN);

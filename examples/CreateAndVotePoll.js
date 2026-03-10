@@ -1,4 +1,4 @@
-const { Client } = require('@discord-selfbot-sdk/bot');
+import { Client } from '@discord-selfbot-sdk/bot';
 const client = new Client();
 
 client.on('ready', async () => {
@@ -39,4 +39,4 @@ client.on('messageUpdate', async (_oldMessage, newMessage) => {
 	console.log('Poll was updated', newMessage.poll);
 });
 
-client.login('token');
+client.login(process.env.DISCORD_TOKEN);

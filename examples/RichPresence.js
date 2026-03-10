@@ -1,4 +1,4 @@
-const { Client, RichPresence, CustomStatus, SpotifyRPC } = require('selfbotsdk-discordjs');
+import { Client, RichPresence, CustomStatus, SpotifyRPC } from '@discord-selfbot-sdk/bot';
 const client = new Client();
 
 client.on('ready', async () => {
@@ -44,4 +44,4 @@ client.on('ready', async () => {
 	client.user.setPresence({ activities: [status, custom, spotify] });
 });
 
-client.login('token');
+client.login(process.env.DISCORD_TOKEN);

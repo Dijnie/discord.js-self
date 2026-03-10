@@ -10,7 +10,7 @@ Install:
 - ffmpeg (install and add to your system environment)
 */
 
-const { Client } = require('@discord-selfbot-sdk/bot');
+import { Client } from '@discord-selfbot-sdk/bot';
 const client = new Client();
 
 client.on('ready', async () => {
@@ -27,4 +27,4 @@ client.on('ready', async () => {
 	}, 5_000);
 });
 
-client.login('token');
+client.login(process.env.DISCORD_TOKEN);

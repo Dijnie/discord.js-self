@@ -1,12 +1,9 @@
-'use strict';
-
-// No longer using 2captcha since the website no longer supports hCaptcha, which Discord uses.
-const Captcha = require('2captcha');
-const Discord = require('@discord-selfbot-sdk/bot');
+import Captcha from '2captcha';
+import { Client } from '@discord-selfbot-sdk/bot';
 
 const solver = new Captcha.Solver('<2captcha key>');
 
-const client = new Discord.Client({
+const client = new Client({
 	captchaSolver: function (captcha, UA) {
 		return solver
 			.hcaptcha(captcha.captcha_sitekey, 'discord.com', {
@@ -32,4 +29,4 @@ client.on('ready', async () => {
 	);
 });
 
-client.login('token');
+client.login(process.env.DISCORD_TOKEN);

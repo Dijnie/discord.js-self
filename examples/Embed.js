@@ -1,4 +1,4 @@
-const { Client, WebEmbed } = require('@discord-selfbot-sdk/bot');
+import { Client, WebEmbed } from '@discord-selfbot-sdk/bot';
 const client = new Client();
 
 client.on('ready', async () => {
@@ -38,4 +38,4 @@ client.on('messageCreate', (message) => {
 	}
 });
 
-client.login('token');
+client.login(process.env.DISCORD_TOKEN);

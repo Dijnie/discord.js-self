@@ -1,4 +1,4 @@
-const { Client, MessageAttachment } = require('@discord-selfbot-sdk/bot');
+import { Client, MessageAttachment } from '@discord-selfbot-sdk/bot';
 const client = new Client();
 
 client.on('ready', async () => {
@@ -18,4 +18,4 @@ client.on('ready', async () => {
 	});
 });
 
-client.login('token');
+client.login(process.env.DISCORD_TOKEN);

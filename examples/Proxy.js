@@ -1,7 +1,5 @@
-'use strict';
-
-const Discord = require('@discord-selfbot-sdk/bot');
-const { ProxyAgent } = require('proxy-agent');
+import { Client } from '@discord-selfbot-sdk/bot';
+import { ProxyAgent } from 'proxy-agent';
 
 const proxy = new ProxyAgent({
 	getProxyForUrl: function () {
@@ -9,7 +7,7 @@ const proxy = new ProxyAgent({
 	},
 });
 
-const client = new Discord.Client({
+const client = new Client({
 	ws: {
 		agent: proxy, // WebSocket Proxy
 		// Do not use the `proxy` option if you don't need to use the WebSocket Proxy
@@ -30,4 +28,4 @@ client.on('ready', async () => {
 	console.log('Ready!', client.user.tag);
 });
 
-client.login('token');
+client.login(process.env.DISCORD_TOKEN);
