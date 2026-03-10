@@ -1905,6 +1905,9 @@ importers:
       '@discordjs/collection':
         specifier: workspace:^
         version: link:../collection
+      '@discordjs/rest':
+        specifier: workspace:^
+        version: link:../rest
       '@discordjs/util':
         specifier: workspace:^
         version: link:../util
