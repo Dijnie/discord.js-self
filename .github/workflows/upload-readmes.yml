@@ -13,10 +13,7 @@ jobs:
   upload-readmes:
     name: Upload README.md files
     runs-on: ubuntu-latest
-    env:
-      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
-    if: github.repository_owner == 'discordjs'
+    if: github.repository_owner == 'Dijnie'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6

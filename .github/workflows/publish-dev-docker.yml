@@ -4,7 +4,7 @@ on:
     - cron: '0 */12 * * *'
   workflow_dispatch:
 env:
-  IMAGE_NAME: discordjs/proxy
+  IMAGE_NAME: dijnie/discord-selfbot-sdk
 jobs:
   build:
     name: Build ${{ matrix.platform }}
