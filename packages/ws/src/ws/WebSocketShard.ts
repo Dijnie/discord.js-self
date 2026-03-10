@@ -571,11 +571,13 @@ export class WebSocketShard extends AsyncEventEmitter<WebSocketShardEventsMap> {
 			data.large_threshold = this.strategy.options.largeThreshold;
 		}
 
+		// User accounts use capabilities instead of intents, so the identify payload
+		// doesn't match GatewayIdentifyData — cast through unknown to bypass TS check
 		await this.send({
 			op: GatewayOpcodes.Identify,
 			// eslint-disable-next-line id-length
 			d: data,
-		} as GatewaySendPayload);
+		} as unknown as GatewaySendPayload);
 
 		await this.waitForEvent(WebSocketShardEvents.Ready, this.strategy.options.readyTimeout);
 	}

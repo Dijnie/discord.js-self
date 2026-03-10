@@ -9,8 +9,11 @@ const { AsyncEventEmitter } = require('@vladfrangu/async_event_emitter');
 const { GatewayDispatchEvents, OAuth2Scopes, Routes } = require('discord-api-types/v10');
 const { DiscordjsError, DiscordjsTypeError, ErrorCodes } = require('../errors/index.js');
 const { ChannelManager } = require('../managers/ChannelManager.js');
+const { ClientUserSettingManager } = require('../managers/ClientUserSettingManager.js');
 const { GuildManager } = require('../managers/GuildManager.js');
+const { RelationshipManager } = require('../managers/RelationshipManager.js');
 const { UserManager } = require('../managers/UserManager.js');
+const { UserNoteManager } = require('../managers/UserNoteManager.js');
 // ShardClientUtil removed — user accounts don't support sharding
 const { ClientPresence } = require('../structures/ClientPresence.js');
 const { GuildPreview } = require('../structures/GuildPreview.js');
@@ -176,6 +179,27 @@ class Client extends AsyncEventEmitter {
      * @type {ChannelManager}
      */
     this.channels = new ChannelManager(this);
+
+    /**
+     * Manages relationships (friends, blocked, pending requests)
+     *
+     * @type {RelationshipManager}
+     */
+    this.relationships = new RelationshipManager(this);
+
+    /**
+     * Manages user notes
+     *
+     * @type {UserNoteManager}
+     */
+    this.notes = new UserNoteManager(this);
+
+    /**
+     * Manages client user settings (theme, locale, display preferences)
+     *
+     * @type {ClientUserSettingManager}
+     */
+    this.settings = new ClientUserSettingManager(this);
 
     /**
      * The sweeping functions and their intervals used to periodically sweep caches
@@ -348,19 +372,16 @@ class Client extends AsyncEventEmitter {
     }
 
     // User accounts always receive guild data; wait for guilds or timeout
-    this.readyTimeout = setTimeout(
-      () => {
-        this.emit(
-          Events.Debug,
-          `Client did not receive all guild packets in ${this.options.waitGuildTimeout} ms.\nUnavailable guild count: ${this.expectedGuilds.size}`,
-        );
+    this.readyTimeout = setTimeout(() => {
+      this.emit(
+        Events.Debug,
+        `Client did not receive all guild packets in ${this.options.waitGuildTimeout} ms.\nUnavailable guild count: ${this.expectedGuilds.size}`,
+      );
 
-        this.readyTimeout = null;
+      this.readyTimeout = null;
 
-        this._triggerClientReady();
-      },
-      this.options.waitGuildTimeout,
-    ).unref();
+      this._triggerClientReady();
+    }, this.options.waitGuildTimeout).unref();
   }
 
   /**
