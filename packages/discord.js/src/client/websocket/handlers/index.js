@@ -56,6 +56,7 @@ const PacketHandlers = Object.fromEntries([
   ['PRESENCE_UPDATE', require('./PRESENCE_UPDATE.js')],
   ['RATE_LIMITED', require('./RATE_LIMITED.js')],
   ['READY', require('./READY.js')],
+  ['READY_SUPPLEMENTAL', require('./READY_SUPPLEMENTAL.js')],
   ['RELATIONSHIP_ADD', require('./RELATIONSHIP_ADD.js')],
   ['RELATIONSHIP_REMOVE', require('./RELATIONSHIP_REMOVE.js')],
   ['RELATIONSHIP_UPDATE', require('./RELATIONSHIP_UPDATE.js')],

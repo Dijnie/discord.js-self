@@ -17,16 +17,11 @@ jobs:
     strategy:
       matrix:
         package:
-          - '@discordjs/brokers'
           - '@discordjs/builders'
           - '@discordjs/collection'
           - '@discordjs/core'
-          - 'create-discord-app'
-          - 'create-discord-bot'
           - '@discordjs/formatters'
           - 'discord.js'
-          - '@discordjs/next'
-          - '@discordjs/proxy'
           - '@discordjs/rest'
           - '@discordjs/structures'
           - '@discordjs/util'
