@@ -5,7 +5,6 @@ const { ErrorCodes } = require('./ErrorCodes.js');
 const Messages = {
   [ErrorCodes.ClientInvalidOption]: (prop, must) => `The ${prop} option must be ${must}`,
   [ErrorCodes.ClientInvalidProvidedShards]: 'None of the provided shards were valid.',
-  [ErrorCodes.ClientMissingIntents]: 'Valid intents must be provided for the Client.',
   [ErrorCodes.ClientNotReady]: action => `The client needs to be logged in to ${action}.`,
 
   [ErrorCodes.TokenInvalid]: 'An invalid token was provided.',

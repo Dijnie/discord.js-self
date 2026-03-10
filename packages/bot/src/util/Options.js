@@ -35,9 +35,8 @@ const { toSnakeCase } = require('./Transformers.js');
  * important usage information, as partials require you to put checks in place when handling data.
  * @property {boolean} [failIfNotExists=true] The default value for {@link MessageReplyOptions#failIfNotExists}
  * @property {PresenceData} [presence] Presence data to use upon login
- * @property {IntentsResolvable} intents Intents to enable for this connection
- * @property {number} [waitGuildTimeout=15_000] Time in milliseconds that clients with the
- * {@link GatewayIntentBits.Guilds} gateway intent should wait for missing guilds to be received before being ready.
+ * @property {number} [waitGuildTimeout=15_000] Time in milliseconds that the client
+ * should wait for missing guilds to be received before being ready.
  * @property {SweeperOptions} [sweepers=this.DefaultSweeperSettings] Options for cache sweeping
  * @property {WebSocketManagerOptions} [ws] Options for the WebSocketManager
  * @property {RESTOptions} [rest] Options for the REST manager

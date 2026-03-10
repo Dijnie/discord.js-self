@@ -8,9 +8,6 @@ const { createEnum } = require('./Enums.js');
  * import { Client, Partials } from '@discord-selfbot-sdk/bot';
  *
  * const client = new Client({
- *   intents: [
- *     // Intents...
- *   ],
  *   partials: [
  *     Partials.User, // We want to receive uncached users!
  *     Partials.Message // We want to receive uncached messages!

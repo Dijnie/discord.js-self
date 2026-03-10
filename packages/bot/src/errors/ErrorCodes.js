@@ -5,7 +5,6 @@
  * @typedef {Object} DiscordjsErrorCodes
  * @property {'ClientInvalidOption'} ClientInvalidOption
  * @property {'ClientInvalidProvidedShards'} ClientInvalidProvidedShards
- * @property {'ClientMissingIntents'} ClientMissingIntents
  * @property {'ClientNotReady'} ClientNotReady
  *
  * @property {'TokenInvalid'} TokenInvalid
@@ -139,7 +138,6 @@
 const keys = [
   'ClientInvalidOption',
   'ClientInvalidProvidedShards',
-  'ClientMissingIntents',
   'ClientNotReady',
 
   'TokenInvalid',
