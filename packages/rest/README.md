@@ -5,33 +5,26 @@
 	</p>
 	<br />
 	<p>
-		<a href="https://discord.gg/djs"><img src="https://img.shields.io/badge/join_us-on_discord-5865F2?logo=discord&logoColor=white" alt="Discord server" /></a>
-		<a href="https://www.npmjs.com/package/@discordjs/rest"><img src="https://img.shields.io/npm/v/@discordjs/rest.svg?maxAge=3600" alt="npm version" /></a>
-		<a href="https://www.npmjs.com/package/@discordjs/rest"><img src="https://img.shields.io/npm/dt/@discordjs/rest.svg?maxAge=3600" alt="npm downloads" /></a>
-		<a href="https://github.com/discordjs/discord.js/actions"><img src="https://github.com/discordjs/discord.js/actions/workflows/tests.yml/badge.svg" alt="Tests status" /></a>
-		<a href="https://github.com/discordjs/discord.js/commits/main/packages/rest"><img alt="Last commit." src="https://img.shields.io/github/last-commit/discordjs/discord.js?logo=github&logoColor=ffffff&path=packages%2Frest" /></a>
-		<a href="https://opencollective.com/discordjs"><img src="https://img.shields.io/opencollective/backers/discordjs?maxAge=3600&logo=opencollective" alt="backers" /></a>
-		<a href="https://codecov.io/gh/discordjs/discord.js"><img src="https://codecov.io/gh/discordjs/discord.js/branch/main/graph/badge.svg?precision=2&flag=rest" alt="Code coverage" /></a>
-	</p>
-	<p>
-		<a href="https://vercel.com/?utm_source=discordjs&utm_campaign=oss"><img src="https://raw.githubusercontent.com/discordjs/discord.js/main/.github/powered-by-vercel.svg" alt="Vercel" /></a>
-		<a href="https://www.cloudflare.com"><img src="https://raw.githubusercontent.com/discordjs/discord.js/main/.github/powered-by-workers.png" alt="Cloudflare Workers" height="44" /></a>
+		<a href="https://www.npmjs.com/package/@discord-selfbot-sdk/rest"><img src="https://img.shields.io/npm/v/@discord-selfbot-sdk/rest.svg?maxAge=3600" alt="npm version" /></a>
+		<a href="https://www.npmjs.com/package/@discord-selfbot-sdk/rest"><img src="https://img.shields.io/npm/dt/@discord-selfbot-sdk/rest.svg?maxAge=3600" alt="npm downloads" /></a>
+		<a href="https://github.com/Dijnie/discord.js-self/actions"><img src="https://github.com/Dijnie/discord.js-self/actions/workflows/tests.yml/badge.svg" alt="Tests status" /></a>
+		<a href="https://github.com/Dijnie/discord.js-self/commits/main/packages/rest"><img alt="Last commit." src="https://img.shields.io/github/last-commit/Dijnie/discord.js-self?logo=github&logoColor=ffffff&path=packages%2Frest" /></a>
 	</p>
 </div>
 
 ## About
 
-`@discordjs/rest` is a module that allows you to easily make REST requests to the Discord API.
+`@discord-selfbot-sdk/rest` is a module that allows you to easily make REST requests to the Discord API.
 
 ## Installation
 
 **Node.js 22.12.0 or newer is required.**
 
 ```sh
-npm install @discordjs/rest
-yarn add @discordjs/rest
-pnpm add @discordjs/rest
-bun add @discordjs/rest
+npm install @discord-selfbot-sdk/rest
+yarn add @discord-selfbot-sdk/rest
+pnpm add @discord-selfbot-sdk/rest
+bun add @discord-selfbot-sdk/rest
 ```
 
 ## Examples
@@ -39,16 +32,16 @@ bun add @discordjs/rest
 Install all required dependencies:
 
 ```sh
-npm install @discordjs/rest discord-api-types
-yarn add @discordjs/rest discord-api-types
-pnpm add @discordjs/rest discord-api-types
-bun add @discordjs/rest discord-api-types
+npm install @discord-selfbot-sdk/rest discord-api-types
+yarn add @discord-selfbot-sdk/rest discord-api-types
+pnpm add @discord-selfbot-sdk/rest discord-api-types
+bun add @discord-selfbot-sdk/rest discord-api-types
 ```
 
 Send a basic message:
 
 ```js
-import { REST } from '@discordjs/rest';
+import { REST } from '@discord-selfbot-sdk/rest';
 import { Routes } from 'discord-api-types/v10';
 
 const rest = new REST({ version: '10' }).setToken(TOKEN);
@@ -67,7 +60,7 @@ try {
 Create a thread from an existing message to be archived after 60 minutes of inactivity:
 
 ```js
-import { REST } from '@discordjs/rest';
+import { REST } from '@discord-selfbot-sdk/rest';
 import { Routes } from 'discord-api-types/v10';
 
 const rest = new REST({ version: '10' }).setToken(TOKEN);
@@ -87,7 +80,7 @@ try {
 Send a basic message in an edge environment:
 
 ```js
-import { REST } from '@discordjs/rest';
+import { REST } from '@discord-selfbot-sdk/rest';
 import { Routes } from 'discord-api-types/v10';
 
 const rest = new REST({ version: '10', makeRequest: fetch }).setToken(TOKEN);
@@ -105,35 +98,15 @@ try {
 
 ## Links
 
-- [Website][website] ([source][website-source])
-- [Documentation][documentation]
-- [Guide][guide] ([source][guide-source])
-  Also see the v13 to v14 [Update Guide][guide-update], which includes updated and removed items from the library.
-- [discord.js Discord server][discord]
-- [Discord Developers Discord server][discord-developers]
 - [GitHub][source]
 - [npm][npm]
 - [Related libraries][related-libs]
 
 ## Contributing
 
-Before creating an issue, please ensure that it hasn't already been reported/suggested, and double-check the
-[documentation][documentation].  
 See [the contribution guide][contributing] if you'd like to submit a PR.
 
-## Help
-
-If you don't understand something in the documentation, you are experiencing problems, or you just need a gentle nudge in the right direction, please don't hesitate to join our official [discord.js Server][discord].
-
-[website]: https://discord.js.org
-[website-source]: https://github.com/discordjs/discord.js/tree/main/apps/website
-[documentation]: https://discord.js.org/docs/packages/rest/stable
-[guide]: https://discordjs.guide
-[guide-source]: https://github.com/discordjs/discord.js/tree/main/apps/guide
-[guide-update]: https://discordjs.guide/legacy/additional-info/changes-in-v14
-[discord]: https://discord.gg/djs
-[discord-developers]: https://discord.gg/discord-developers
-[source]: https://github.com/discordjs/discord.js/tree/main/packages/rest
-[npm]: https://www.npmjs.com/package/@discordjs/rest
+[source]: https://github.com/Dijnie/discord.js-self/tree/main/packages/rest
+[npm]: https://www.npmjs.com/package/@discord-selfbot-sdk/rest
 [related-libs]: https://discord.com/developers/docs/topics/community-resources#libraries
-[contributing]: https://github.com/discordjs/discord.js/blob/main/.github/CONTRIBUTING.md
+[contributing]: https://github.com/Dijnie/discord.js-self/blob/main/.github/CONTRIBUTING.md
