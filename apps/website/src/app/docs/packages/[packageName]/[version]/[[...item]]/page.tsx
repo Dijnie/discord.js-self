@@ -1,10 +1,12 @@
+import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { SafeMdxRenderer } from 'safe-mdx';
 import { mdxParse } from 'safe-mdx/parse';
 import { DocItem } from '@/components/DocItem';
 import { SyntaxHighlighter } from '@/components/SyntaxHighlighter';
-// import { PACKAGES_WITH_ENTRY_POINTS } from '@/util/constants';
+import { ENV } from '@/util/env';
 import { fetchNode } from '@/util/fetchNode';
 import { parseDocsPathParams } from '@/util/parseDocsPathParams';
 
@@ -58,9 +60,13 @@ export default async function Page({
 		let fileContent: string;
 
 		try {
-			fileContent = await fetch(`${process.env.CF_R2_README_BUCKET_URL}/${packageName}/home-README.md`).then(
-				async (res) => res.text(),
-			);
+			if (ENV.IS_LOCAL_DEV) {
+				fileContent = await readFile(join(process.cwd(), `src/assets/readme/${packageName}/home-README.md`), 'utf8');
+			} else {
+				fileContent = await fetch(`${process.env.CF_R2_README_BUCKET_URL}/${packageName}/home-README.md`).then(
+					async (res) => res.text(),
+				);
+			}
 		} catch {
 			notFound();
 		}
