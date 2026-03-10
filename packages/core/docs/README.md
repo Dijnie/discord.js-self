@@ -1,1 +1,1 @@
-## [View the documentation here.](https://discord.js.org/docs/packages/core/main)
+## [View the documentation here.](https://github.com/Dijnie/discord.js-self/tree/main/packages/core)

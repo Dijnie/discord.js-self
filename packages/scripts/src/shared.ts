@@ -1,21 +1,6 @@
 import { request } from 'undici';
 
-export const PACKAGES = [
-	'discord.js',
-	'brokers',
-	'builders',
-	'collection',
-	'core',
-	'formatters',
-	'next',
-	'proxy',
-	'rest',
-	'structures',
-	'util',
-	'voice',
-	'ws',
-	'discord-api-types',
-];
+export const PACKAGES = ['bot', 'core', 'rest', 'util', 'ws'];
 
 export async function fetchVersions(pkg: string) {
 	const response = await request(`https://discord.js.org/api/docs/versions?packageName=${pkg}`);
