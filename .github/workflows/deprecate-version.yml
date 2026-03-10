@@ -7,16 +7,16 @@ on:
         required: true
         type: choice
         options:
-          - '@discordjs/builders'
-          - '@discordjs/collection'
-          - '@discordjs/core'
-          - '@discordjs/formatters'
+          - '@discord-selfbot-sdk/builders'
+          - '@discord-selfbot-sdk/collection'
+          - '@discord-selfbot-sdk/core'
+          - '@discord-selfbot-sdk/formatters'
           - 'discord.js'
-          - '@discordjs/rest'
-          - '@discordjs/structures'
-          - '@discordjs/util'
-          - '@discordjs/voice'
-          - '@discordjs/ws'
+          - '@discord-selfbot-sdk/rest'
+          - '@discord-selfbot-sdk/structures'
+          - '@discord-selfbot-sdk/util'
+          - '@discord-selfbot-sdk/voice'
+          - '@discord-selfbot-sdk/ws'
       version:
         description: Version(s)
         required: true

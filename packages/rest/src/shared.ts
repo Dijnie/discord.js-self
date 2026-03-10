@@ -11,7 +11,7 @@ export * from './lib/utils/super-properties.js';
 export * from './lib/utils/browser-headers.js';
 
 /**
- * The {@link https://github.com/discordjs/discord.js/blob/main/packages/rest#readme | @discordjs/rest} version
+ * The {@link https://github.com/discordjs/discord.js/blob/main/packages/rest#readme | @discord-selfbot-sdk/rest} version
  * that you are currently using.
  */
 // This needs to explicitly be `string` so it is not typed as a "const string" that gets injected by esbuild

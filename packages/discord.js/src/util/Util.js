@@ -1,12 +1,12 @@
 'use strict';
 
 const { parse } = require('node:path');
-const { Collection } = require('@discordjs/collection');
-const { lazy } = require('@discordjs/util');
+const { Collection } = require('@discord-selfbot-sdk/collection');
+const { lazy } = require('@discord-selfbot-sdk/util');
 const { ChannelType } = require('discord-api-types/v10');
 const { Colors } = require('./Colors.js');
 // eslint-disable-next-line import-x/order
-const { DiscordjsError, DiscordjsRangeError, DiscordjsTypeError, ErrorCodes } = require('../errors/index.js');
+const { DiscordjsRangeError, DiscordjsTypeError, ErrorCodes } = require('../errors/index.js');
 
 // Fixes circular dependencies.
 const getAttachment = lazy(() => require('../structures/Attachment.js').Attachment);
@@ -61,7 +61,6 @@ function flatten(obj, ...props) {
 
   return out;
 }
-
 
 /**
  * A partial emoji object.

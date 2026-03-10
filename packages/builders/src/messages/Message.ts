@@ -1,4 +1,4 @@
-import type { FileBodyEncodable, FileBodyEncodableResult, JSONEncodable, RawFile } from '@discordjs/util';
+import type { FileBodyEncodable, FileBodyEncodableResult, JSONEncodable, RawFile } from '@discord-selfbot-sdk/util';
 import type {
 	APIActionRowComponent,
 	APIAllowedMentions,

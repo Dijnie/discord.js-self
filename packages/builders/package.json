@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json.schemastore.org/package.json",
-	"name": "@discordjs/builders",
+	"name": "@discord-selfbot-sdk/builders",
 	"version": "1.11.1",
 	"description": "A set of builders that you can use when creating your bot",
 	"scripts": {
@@ -65,15 +65,15 @@
 	"homepage": "https://discord.js.org",
 	"funding": "https://github.com/discordjs/discord.js?sponsor",
 	"dependencies": {
-		"@discordjs/util": "workspace:^",
+		"@discord-selfbot-sdk/util": "workspace:^",
 		"discord-api-types": "^0.38.41",
 		"ts-mixer": "^6.0.4",
 		"tslib": "^2.8.1",
 		"zod": "^4.3.6"
 	},
 	"devDependencies": {
-		"@discordjs/api-extractor": "workspace:^",
-		"@discordjs/scripts": "workspace:^",
+		"@discord-selfbot-sdk/api-extractor": "workspace:^",
+		"@discord-selfbot-sdk/scripts": "workspace:^",
 		"@favware/cliff-jumper": "^6.0.0",
 		"@types/node": "^22.19.11",
 		"@vitest/coverage-v8": "^4.0.18",

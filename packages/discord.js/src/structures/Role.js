@@ -1,6 +1,6 @@
 'use strict';
 
-const { roleMention } = require('@discordjs/formatters');
+const { roleMention } = require('@discord-selfbot-sdk/formatters');
 const { DiscordSnowflake } = require('@sapphire/snowflake');
 const { PermissionFlagsBits } = require('discord-api-types/v10');
 const { DiscordjsError, ErrorCodes } = require('../errors/index.js');

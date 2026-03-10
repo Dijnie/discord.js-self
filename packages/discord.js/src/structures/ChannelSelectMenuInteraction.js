@@ -1,6 +1,6 @@
 'use strict';
 
-const { Collection } = require('@discordjs/collection');
+const { Collection } = require('@discord-selfbot-sdk/collection');
 const { MessageComponentInteraction } = require('./MessageComponentInteraction.js');
 
 /**

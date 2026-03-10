@@ -1,6 +1,6 @@
 'use strict';
 
-const { Collection } = require('@discordjs/collection');
+const { Collection } = require('@discord-selfbot-sdk/collection');
 const { Routes } = require('discord-api-types/v10');
 const { AutoModerationRule } = require('../structures/AutoModerationRule.js');
 const { CachedManager } = require('./CachedManager.js');

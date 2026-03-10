@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json.schemastore.org/package.json",
-	"name": "@discordjs/website",
+	"name": "@discord-selfbot-sdk/website",
 	"version": "0.1.0",
 	"description": "Imagine a bot... the most popular way to build discord bots",
 	"private": true,
@@ -13,7 +13,7 @@
 		"build:next": "next build",
 		"build": "pnpm run build:copy_readme && next build --webpack",
 		"build:search_indices": "pnpm node scripts/generateAllIndices.js",
-		"build:analyze": "turbo run docs --filter='@discordjs/*' --concurrency=4 && cross-env ANALYZE=true NEXT_PUBLIC_LOCAL_DEV=true pnpm run build:prod",
+		"build:analyze": "turbo run docs --filter='@discord-selfbot-sdk/*' --concurrency=4 && cross-env ANALYZE=true NEXT_PUBLIC_LOCAL_DEV=true pnpm run build:prod",
 		"preview": "next start",
 		"preview:cf": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
 		"deploy:cf": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",

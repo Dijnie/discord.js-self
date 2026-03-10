@@ -1,4 +1,4 @@
-import { embedLength } from '@discordjs/util';
+import { embedLength } from '@discord-selfbot-sdk/util';
 import { z } from 'zod';
 
 const namePredicate = z.string().max(256);

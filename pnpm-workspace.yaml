@@ -9,7 +9,7 @@ ignoredBuiltDependencies:
   - unrs-resolver
 
 onlyBuiltDependencies:
-  - '@discordjs/opus'
+  - '@discord-selfbot-sdk/opus'
   - '@tailwindcss/oxide'
   - bufferutil
   - esbuild

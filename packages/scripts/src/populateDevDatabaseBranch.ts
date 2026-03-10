@@ -18,11 +18,11 @@ for await (const file of globber.globGenerator()) {
 		console.log(parsed.groups.semver, file);
 		try {
 			const { name } = JSON.parse(data);
-			const { url } = await put(`${name.replace('@discordjs/', '')}/${parsed.groups.semver}.json`, data, {
+			const { url } = await put(`${name.replace('@discord-selfbot-sdk/', '')}/${parsed.groups.semver}.json`, data, {
 				access: 'public',
 				allowOverwrite: true,
 			});
-			await pool.sql`insert into documentation (name, version, url) values (${name.replace('@discordjs/', '')}, ${
+			await pool.sql`insert into documentation (name, version, url) values (${name.replace('@discord-selfbot-sdk/', '')}, ${
 				parsed.groups.semver
 			}, ${url}) on conflict (name, version) do update set url = EXCLUDED.url`;
 		} catch (error) {
@@ -32,12 +32,12 @@ for await (const file of globber.globGenerator()) {
 		console.log('main', file);
 		try {
 			const { name } = JSON.parse(data);
-			const { url } = await put(`${name.replace('@discordjs/', '')}/main.json`, data, {
+			const { url } = await put(`${name.replace('@discord-selfbot-sdk/', '')}/main.json`, data, {
 				access: 'public',
 				allowOverwrite: true,
 			});
 			await pool.sql`insert into documentation (name, version, url) values (${name.replace(
-				'@discordjs/',
+				'@discord-selfbot-sdk/',
 				'',
 			)}, ${'main'}, ${url}) on conflict (name, version) do update set url = EXCLUDED.url`;
 		} catch (error) {

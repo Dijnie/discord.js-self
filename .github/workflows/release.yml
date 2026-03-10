@@ -13,21 +13,21 @@ on:
         options:
           - all
           - discord.js
-          - '@discordjs/builders'
-          - '@discordjs/collection'
-          - '@discordjs/core'
-          # - '@discordjs/docgen'
-          - '@discordjs/formatters'
-          - '@discordjs/rest'
-          - '@discordjs/structures'
-          - '@discordjs/util'
-          - '@discordjs/voice'
-          - '@discordjs/ws'
+          - '@discord-selfbot-sdk/builders'
+          - '@discord-selfbot-sdk/collection'
+          - '@discord-selfbot-sdk/core'
+          # - '@discord-selfbot-sdk/docgen'
+          - '@discord-selfbot-sdk/formatters'
+          - '@discord-selfbot-sdk/rest'
+          - '@discord-selfbot-sdk/structures'
+          - '@discord-selfbot-sdk/util'
+          - '@discord-selfbot-sdk/voice'
+          - '@discord-selfbot-sdk/ws'
       exclude:
         description: 'Comma separated list of packages to exclude from release (if not depended upon)'
         required: false
         type: string
-        default: '@discordjs/docgen'
+        default: '@discord-selfbot-sdk/docgen'
       dry_run:
         description: Perform a dry run?
         type: boolean
@@ -83,7 +83,7 @@ jobs:
           COREPACK_ENABLE_STRICT: 0
         run: |
           pnpm self-update 10
-          pnpm install --filter @discordjs/actions --frozen-lockfile --prefer-offline --loglevel error
+          pnpm install --filter @discord-selfbot-sdk/actions --frozen-lockfile --prefer-offline --loglevel error
 
       - name: Release packages (non-main ref)
         if: ${{ inputs.ref && inputs.ref != 'main' }}

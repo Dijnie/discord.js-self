@@ -1,4 +1,4 @@
-import { Collection } from '@discordjs/collection';
+import { Collection } from '@discord-selfbot-sdk/collection';
 import { DiscordSnowflake } from '@sapphire/snowflake';
 import { AsyncEventEmitter } from '@vladfrangu/async_event_emitter';
 import { filetypeinfo } from 'magic-bytes.js';
@@ -307,9 +307,7 @@ export class REST extends AsyncEventEmitter<RestEvents> {
 		}
 
 		// Create the required headers with browser fingerprinting
-		const browserHeaders = this.options.superProperties
-			? generateBrowserHeaders(this.options.superProperties)
-			: {};
+		const browserHeaders = this.options.superProperties ? generateBrowserHeaders(this.options.superProperties) : {};
 		const headers: RequestHeaders = {
 			...browserHeaders,
 			...this.options.headers,
@@ -329,9 +327,7 @@ export class REST extends AsyncEventEmitter<RestEvents> {
 					throw new Error('Expected token to be set for this request, but none was present');
 				}
 
-				headers.Authorization = this.options.authPrefix
-					? `${this.options.authPrefix} ${this.#token}`
-					: this.#token;
+				headers.Authorization = this.options.authPrefix ? `${this.options.authPrefix} ${this.#token}` : this.#token;
 			}
 		}
 

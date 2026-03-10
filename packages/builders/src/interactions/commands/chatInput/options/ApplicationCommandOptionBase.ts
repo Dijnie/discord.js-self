@@ -1,4 +1,4 @@
-import type { JSONEncodable } from '@discordjs/util';
+import type { JSONEncodable } from '@discord-selfbot-sdk/util';
 import type {
 	APIApplicationCommandBasicOption,
 	APIApplicationCommandOption,

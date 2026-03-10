@@ -1,5 +1,5 @@
 import { Buffer } from 'node:buffer';
-import type { RawFile } from '@discordjs/util';
+import type { RawFile } from '@discord-selfbot-sdk/util';
 import { test, expect } from 'vitest';
 import { AttachmentBuilder, MessageBuilder } from '../../src/index.js';
 

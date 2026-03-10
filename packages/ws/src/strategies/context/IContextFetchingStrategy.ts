@@ -1,4 +1,4 @@
-import type { Awaitable } from '@discordjs/util';
+import type { Awaitable } from '@discord-selfbot-sdk/util';
 import type { SessionInfo, WebSocketManager, WebSocketManagerOptions } from '../../ws/WebSocketManager.js';
 
 export interface FetchingStrategyOptions extends Pick<

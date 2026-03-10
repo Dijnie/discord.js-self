@@ -1,6 +1,6 @@
 'use strict';
 
-const { Collection } = require('@discordjs/collection');
+const { Collection } = require('@discord-selfbot-sdk/collection');
 const { flatten } = require('../util/Util.js');
 const { ApplicationCommand } = require('./ApplicationCommand.js');
 const { GuildAuditLogsEntry } = require('./GuildAuditLogsEntry.js');

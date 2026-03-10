@@ -1,6 +1,6 @@
 'use strict';
 
-const { lazy } = require('@discordjs/util');
+const { lazy } = require('@discord-selfbot-sdk/util');
 const { ComponentType } = require('discord-api-types/v10');
 
 // Fixes circular dependencies.

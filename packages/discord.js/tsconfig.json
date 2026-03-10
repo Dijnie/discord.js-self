@@ -9,11 +9,11 @@
     "skipDefaultLibCheck": true,
 
     "types": [
-      "@discordjs/builders",
-      "@discordjs/util",
-      "@discordjs/collection",
-      "@discordjs/rest",
-      "@discordjs/ws",
+      "@discord-selfbot-sdk/builders",
+      "@discord-selfbot-sdk/util",
+      "@discord-selfbot-sdk/collection",
+      "@discord-selfbot-sdk/rest",
+      "@discord-selfbot-sdk/ws",
       "discord-api-types/v10",
       "node",
       "tsd",

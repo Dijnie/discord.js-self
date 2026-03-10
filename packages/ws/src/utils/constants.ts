@@ -1,12 +1,12 @@
-import { Collection } from '@discordjs/collection';
-import { lazy } from '@discordjs/util';
-import { SuperProperties, type SuperPropertiesData } from '@discordjs/rest';
+import { Collection } from '@discord-selfbot-sdk/collection';
+import { SuperProperties, type SuperPropertiesData } from '@discord-selfbot-sdk/rest';
+import { lazy } from '@discord-selfbot-sdk/util';
 import { APIVersion, GatewayOpcodes } from 'discord-api-types/v10';
 import { SimpleShardingStrategy } from '../strategies/sharding/SimpleShardingStrategy.js';
 import { SimpleIdentifyThrottler } from '../throttling/SimpleIdentifyThrottler.js';
-import { DefaultCapabilities } from './capabilities.js';
 import type { SessionInfo, OptionalWebSocketManagerOptions, WebSocketManager } from '../ws/WebSocketManager.js';
 import type { SendRateLimitState } from '../ws/WebSocketShard.js';
+import { DefaultCapabilities } from './capabilities.js';
 
 /**
  * Valid encoding types
@@ -24,11 +24,14 @@ export enum CompressionMethod {
 	ZstdNative,
 }
 
-export const DefaultDeviceProperty = `@discordjs/ws [VI]{{inject}}[/VI]` as `@discordjs/ws ${string}`;
+export const DefaultDeviceProperty =
+	`@discord-selfbot-sdk/ws [VI]{{inject}}[/VI]` as `@discord-selfbot-sdk/ws ${string}`;
 
 const getDefaultSessionStore = lazy(() => new Collection<number, SessionInfo | null>());
 
-/** Default super properties instance for gateway IDENTIFY */
+/**
+ * Default super properties instance for gateway IDENTIFY
+ */
 const defaultSuperProps = new SuperProperties();
 
 export const CompressionParameterMap = {
@@ -37,23 +40,27 @@ export const CompressionParameterMap = {
 	[CompressionMethod.ZstdNative]: 'zstd-stream',
 } as const satisfies Record<CompressionMethod, string>;
 
-/** Presence data for the user-style IDENTIFY payload */
+/**
+ * Presence data for the user-style IDENTIFY payload
+ */
 export interface UserPresenceData {
-	status: string;
 	activities: unknown[];
 	afk: boolean;
 	since: number;
+	status: string;
 }
 
-/** User-style IDENTIFY payload (replaces bot GatewayIdentifyData) */
+/**
+ * User-style IDENTIFY payload (replaces bot GatewayIdentifyData)
+ */
 export interface UserIdentifyData {
-	token: string;
 	capabilities: number;
-	properties: SuperPropertiesData;
-	presence: UserPresenceData;
-	compress: boolean;
 	client_state: { guild_versions: Record<string, never> };
+	compress: boolean;
 	large_threshold?: number;
+	presence: UserPresenceData;
+	properties: SuperPropertiesData;
+	token: string;
 }
 
 /**

@@ -2,8 +2,8 @@ import { Buffer } from 'node:buffer';
 import { once } from 'node:events';
 import { setTimeout as sleep } from 'node:timers/promises';
 import type * as nativeZlib from 'node:zlib';
-import { Collection } from '@discordjs/collection';
-import { lazy, shouldUseGlobalFetchAndWebSocket } from '@discordjs/util';
+import { Collection } from '@discord-selfbot-sdk/collection';
+import { lazy, shouldUseGlobalFetchAndWebSocket } from '@discord-selfbot-sdk/util';
 import { AsyncQueue } from '@sapphire/async-queue';
 import { AsyncEventEmitter } from '@vladfrangu/async_event_emitter';
 import {

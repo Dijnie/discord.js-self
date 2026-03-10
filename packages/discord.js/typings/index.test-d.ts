@@ -17,8 +17,8 @@ import {
   UserSelectMenuBuilder,
   type ChatInputCommandBuilder,
   type ContextMenuCommandBuilder,
-} from '@discordjs/builders';
-import type { ReadonlyCollection } from '@discordjs/collection';
+} from '@discord-selfbot-sdk/builders';
+import type { ReadonlyCollection } from '@discord-selfbot-sdk/collection';
 import type {
   APIButtonComponent,
   APIButtonComponentWithCustomId,

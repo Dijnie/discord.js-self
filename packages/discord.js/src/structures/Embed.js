@@ -1,6 +1,6 @@
 'use strict';
 
-const { embedLength } = require('@discordjs/util');
+const { embedLength } = require('@discord-selfbot-sdk/util');
 const isEqual = require('fast-deep-equal');
 
 /**

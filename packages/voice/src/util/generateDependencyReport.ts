@@ -34,7 +34,7 @@ function findPackageJSON(
  */
 function version(name: string): string {
 	try {
-		if (name === '@discordjs/voice') {
+		if (name === '@discord-selfbot-sdk/voice') {
 			return '[VI]{{inject}}[/VI]';
 		}
 
@@ -46,7 +46,7 @@ function version(name: string): string {
 }
 
 /**
- * Generates a report of the dependencies used by the \@discordjs/voice module.
+ * Generates a report of the dependencies used by the \@discord-selfbot-sdk/voice module.
  * Useful for debugging.
  */
 export function generateDependencyReport() {
@@ -54,13 +54,13 @@ export function generateDependencyReport() {
 	const addVersion = (name: string) => report.push(`- ${name}: ${version(name)}`);
 	// general
 	report.push('Core Dependencies');
-	addVersion('@discordjs/voice');
+	addVersion('@discord-selfbot-sdk/voice');
 	addVersion('prism-media');
 	report.push('');
 
 	// opus
 	report.push('Opus Libraries');
-	addVersion('@discordjs/opus');
+	addVersion('@discord-selfbot-sdk/opus');
 	addVersion('opusscript');
 	report.push('');
 

@@ -1,7 +1,7 @@
 'use strict';
 
-const { makeURLSearchParams } = require('@discordjs/rest');
-const { lazy } = require('@discordjs/util');
+const { makeURLSearchParams } = require('@discord-selfbot-sdk/rest');
+const { lazy } = require('@discord-selfbot-sdk/util');
 const { DiscordSnowflake } = require('@sapphire/snowflake');
 const { Routes, WebhookType } = require('discord-api-types/v10');
 const { DiscordjsError, ErrorCodes } = require('../errors/index.js');

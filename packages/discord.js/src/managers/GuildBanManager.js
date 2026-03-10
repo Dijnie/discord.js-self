@@ -1,7 +1,7 @@
 'use strict';
 
-const { Collection } = require('@discordjs/collection');
-const { makeURLSearchParams } = require('@discordjs/rest');
+const { Collection } = require('@discord-selfbot-sdk/collection');
+const { makeURLSearchParams } = require('@discord-selfbot-sdk/rest');
 const { Routes } = require('discord-api-types/v10');
 const { DiscordjsTypeError, DiscordjsError, ErrorCodes } = require('../errors/index.js');
 const { GuildBan } = require('../structures/GuildBan.js');

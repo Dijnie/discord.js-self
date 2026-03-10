@@ -1,7 +1,7 @@
 import type { Readable } from 'node:stream';
 import type { ReadableStream } from 'node:stream/web';
-import type { Collection } from '@discordjs/collection';
-import type { Awaitable, RawFile } from '@discordjs/util';
+import type { Collection } from '@discord-selfbot-sdk/collection';
+import type { Awaitable, RawFile } from '@discord-selfbot-sdk/util';
 import type { Agent, Dispatcher, RequestInit, BodyInit, Response } from 'undici';
 import type { IHandler } from '../interfaces/Handler.js';
 import type { SuperProperties } from './super-properties.js';
@@ -122,16 +122,16 @@ export interface RESTOptions {
 	 */
 	retryBackoff: GetRetryBackoffFunction | number;
 	/**
+	 * Super properties instance for browser fingerprinting.
+	 * Used to generate X-Super-Properties header and User-Agent.
+	 */
+	superProperties: SuperProperties;
+	/**
 	 * The time to wait in milliseconds before a request is aborted
 	 *
 	 * @defaultValue `15_000`
 	 */
 	timeout: GetTimeoutFunction | number;
-	/**
-	 * Super properties instance for browser fingerprinting.
-	 * Used to generate X-Super-Properties header and User-Agent.
-	 */
-	superProperties: SuperProperties;
 	/**
 	 * Extra information to add to the user agent
 	 *
@@ -284,7 +284,7 @@ export interface InvalidRequestWarningData {
 	remainingTime: number;
 }
 
-export type { RawFile } from '@discordjs/util';
+export type { RawFile } from '@discord-selfbot-sdk/util';
 
 export interface AuthData {
 	/**
@@ -361,10 +361,10 @@ export interface RequestData {
  * Possible headers for an API call
  */
 export interface RequestHeaders {
+	[key: string]: string | undefined;
 	Authorization?: string;
 	'User-Agent': string;
 	'X-Audit-Log-Reason'?: string;
-	[key: string]: string | undefined;
 }
 
 /**

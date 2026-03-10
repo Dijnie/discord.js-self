@@ -1,15 +1,16 @@
-import type { Collection } from '@discordjs/collection';
-import { range, type Awaitable } from '@discordjs/util';
+import type { Collection } from '@discord-selfbot-sdk/collection';
+import type { SuperPropertiesData } from '@discord-selfbot-sdk/rest';
+import { range, type Awaitable } from '@discord-selfbot-sdk/util';
 import { AsyncEventEmitter } from '@vladfrangu/async_event_emitter';
-import type {
-	GatewaySendPayload,
-	GatewayDispatchPayload,
-	GatewayReadyDispatchData,
-} from 'discord-api-types/v10';
-import type { SuperPropertiesData } from '@discordjs/rest';
+import type { GatewaySendPayload, GatewayDispatchPayload, GatewayReadyDispatchData } from 'discord-api-types/v10';
 import type { IShardingStrategy } from '../strategies/sharding/IShardingStrategy.js';
 import type { IIdentifyThrottler } from '../throttling/IIdentifyThrottler.js';
-import { DefaultWebSocketManagerOptions, type CompressionMethod, type Encoding, type UserPresenceData } from '../utils/constants.js';
+import {
+	DefaultWebSocketManagerOptions,
+	type CompressionMethod,
+	type Encoding,
+	type UserPresenceData,
+} from '../utils/constants.js';
 import type { WebSocketShardDestroyOptions, WebSocketShardEvents, WebSocketShardStatus } from './WebSocketShard.js';
 
 /**

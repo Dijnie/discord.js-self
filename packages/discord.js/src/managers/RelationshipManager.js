@@ -1,6 +1,6 @@
 'use strict';
 
-const { Collection } = require('@discordjs/collection');
+const { Collection } = require('@discord-selfbot-sdk/collection');
 const { BaseManager } = require('./BaseManager.js');
 
 // Relationship types: 1=friend, 2=blocked, 3=pending_incoming, 4=pending_outgoing

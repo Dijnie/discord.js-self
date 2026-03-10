@@ -1,6 +1,6 @@
 'use strict';
 
-const { Collection } = require('@discordjs/collection');
+const { Collection } = require('@discord-selfbot-sdk/collection');
 const { DiscordjsError, ErrorCodes } = require('../errors/index.js');
 const { Base } = require('./Base.js');
 const { PollAnswer } = require('./PollAnswer.js');

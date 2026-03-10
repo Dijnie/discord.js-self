@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json.schemastore.org/package.json",
-	"name": "@discordjs/formatters",
+	"name": "@discord-selfbot-sdk/formatters",
 	"version": "0.6.1",
 	"description": "A set of functions to format strings for Discord.",
 	"scripts": {
@@ -58,8 +58,8 @@
 		"discord-api-types": "^0.38.41"
 	},
 	"devDependencies": {
-		"@discordjs/api-extractor": "workspace:^",
-		"@discordjs/scripts": "workspace:^",
+		"@discord-selfbot-sdk/api-extractor": "workspace:^",
+		"@discord-selfbot-sdk/scripts": "workspace:^",
 		"@favware/cliff-jumper": "^6.0.0",
 		"@types/node": "^22.19.11",
 		"@vitest/coverage-v8": "^4.0.18",

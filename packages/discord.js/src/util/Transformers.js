@@ -1,6 +1,6 @@
 'use strict';
 
-const { isJSONEncodable } = require('@discordjs/util');
+const { isJSONEncodable } = require('@discord-selfbot-sdk/util');
 const snakeCase = require('lodash.snakecase');
 const { AuthorizingIntegrationOwners } = require('../structures/AuthorizingIntegrationOwners.js');
 

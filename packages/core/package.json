@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json.schemastore.org/package.json",
-	"name": "@discordjs/core",
+	"name": "@discord-selfbot-sdk/core",
 	"version": "2.1.0",
 	"description": "A thinly abstracted wrapper around the rest API, and gateway.",
 	"scripts": {
@@ -65,16 +65,16 @@
 	"homepage": "https://discord.js.org",
 	"funding": "https://github.com/discordjs/discord.js?sponsor",
 	"dependencies": {
-		"@discordjs/rest": "workspace:^",
-		"@discordjs/util": "workspace:^",
-		"@discordjs/ws": "workspace:^",
+		"@discord-selfbot-sdk/rest": "workspace:^",
+		"@discord-selfbot-sdk/util": "workspace:^",
+		"@discord-selfbot-sdk/ws": "workspace:^",
 		"@sapphire/snowflake": "^3.5.5",
 		"@vladfrangu/async_event_emitter": "^2.4.7",
 		"discord-api-types": "^0.38.41"
 	},
 	"devDependencies": {
-		"@discordjs/api-extractor": "workspace:^",
-		"@discordjs/scripts": "workspace:^",
+		"@discord-selfbot-sdk/api-extractor": "workspace:^",
+		"@discord-selfbot-sdk/scripts": "workspace:^",
 		"@favware/cliff-jumper": "^6.0.0",
 		"@types/node": "^22.19.11",
 		"@vitest/coverage-v8": "^4.0.18",

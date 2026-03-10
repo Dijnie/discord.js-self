@@ -1,4 +1,4 @@
-import { getUserAgentAppendix } from '@discordjs/util';
+import { getUserAgentAppendix } from '@discord-selfbot-sdk/util';
 import type { ImageSize } from 'discord-api-types/v10';
 import { APIVersion } from 'discord-api-types/v10';
 import { getDefaultStrategy } from '../../environment.js';
@@ -7,7 +7,9 @@ import type { RESTOptions, ResponseLike } from './types.js';
 
 export type { ImageSize } from 'discord-api-types/v10';
 
-/** Shared SuperProperties instance used by REST and available for gateway */
+/**
+ * Shared SuperProperties instance used by REST and available for gateway
+ */
 const defaultSuperProps = new SuperProperties();
 
 export const DefaultUserAgent: string = defaultSuperProps.userAgent;

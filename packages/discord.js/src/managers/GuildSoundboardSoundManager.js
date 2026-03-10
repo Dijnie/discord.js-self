@@ -1,7 +1,7 @@
 'use strict';
 
-const { Collection } = require('@discordjs/collection');
-const { lazy } = require('@discordjs/util');
+const { Collection } = require('@discord-selfbot-sdk/collection');
+const { lazy } = require('@discord-selfbot-sdk/util');
 const { Routes } = require('discord-api-types/v10');
 const { DiscordjsTypeError, ErrorCodes } = require('../errors/index.js');
 const { SoundboardSound } = require('../structures/SoundboardSound.js');

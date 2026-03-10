@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json.schemastore.org/package.json",
-	"name": "@discordjs/actions",
+	"name": "@discord-selfbot-sdk/actions",
 	"version": "0.1.0",
 	"description": "A set of actions that we use for our workflows",
 	"private": true,
@@ -45,7 +45,7 @@
 		"@actions/github": "^6.0.1",
 		"@actions/glob": "^0.5.1",
 		"@aws-sdk/client-s3": "^3.994.0",
-		"@discordjs/scripts": "workspace:^",
+		"@discord-selfbot-sdk/scripts": "workspace:^",
 		"cloudflare": "^5.2.0",
 		"commander": "^14.0.3",
 		"meilisearch": "^0.54.0",
