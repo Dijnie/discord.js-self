@@ -176,4 +176,9 @@ exports.Events = {
   VoiceStateUpdate: 'voiceStateUpdate',
   Warn: 'warn',
   WebhooksUpdate: 'webhooksUpdate',
+  RelationshipAdd: 'relationshipAdd',
+  RelationshipRemove: 'relationshipRemove',
+  RelationshipUpdate: 'relationshipUpdate',
+  ChannelRecipientAdd: 'channelRecipientAdd',
+  ChannelRecipientRemove: 'channelRecipientRemove',
 };

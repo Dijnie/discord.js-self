@@ -13,6 +13,7 @@ const { GuildEmojiManager } = require('../managers/GuildEmojiManager.js');
 const { GuildInviteManager } = require('../managers/GuildInviteManager.js');
 const { GuildMemberManager } = require('../managers/GuildMemberManager.js');
 const { GuildScheduledEventManager } = require('../managers/GuildScheduledEventManager.js');
+const { GuildSettingManager } = require('../managers/GuildSettingManager.js');
 const { GuildSoundboardSoundManager } = require('../managers/GuildSoundboardSoundManager.js');
 const { GuildStickerManager } = require('../managers/GuildStickerManager.js');
 const { PresenceManager } = require('../managers/PresenceManager.js');
@@ -126,6 +127,13 @@ class Guild extends AnonymousGuild {
      * @type {GuildSoundboardSoundManager}
      */
     this.soundboardSounds = new GuildSoundboardSoundManager(this);
+
+    /**
+     * Per-guild notification settings for the client user
+     *
+     * @type {GuildSettingManager}
+     */
+    this.settings = new GuildSettingManager(this);
 
     if (!data) return;
     if (data.unavailable) {
