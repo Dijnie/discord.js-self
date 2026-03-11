@@ -14,6 +14,7 @@ const { makeError, makePlainError } = require('../util/Util.js');
  */
 class ShardClientUtil {
   constructor(client, mode) {
+    throw new Error('Sharding is not supported for selfbot accounts. User accounts are single-shard only.');
     /**
      * Client for the shard
      *

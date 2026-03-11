@@ -326,8 +326,9 @@ class Client extends AsyncEventEmitter {
       const [buildNumber, browserVersion] = await Promise.all([fetchBuildNumber(), fetchBrowserVersion()]);
       const superProperties = generateSuperProperties(buildNumber, browserVersion);
 
-      // Pass to REST (X-Super-Properties header) and WS (IDENTIFY payload)
+      // Pass to REST (X-Super-Properties header, Sec-CH-UA) and WS (IDENTIFY payload)
       this.rest.setSuperProperties(superProperties);
+      this.rest.setClientHints(browserVersion);
       this.options.ws.superProperties = superProperties;
 
       this.emit(Events.Debug, `Super properties initialized (build: ${buildNumber}, Chrome: ${browserVersion})`);

@@ -22,6 +22,11 @@ const { Shard } = require('./Shard.js');
  * @extends {AsyncEventEmitter}
  */
 class ShardingManager extends AsyncEventEmitter {
+  constructor() {
+    super();
+    throw new Error('Sharding is not supported for selfbot accounts. User accounts are single-shard only.');
+  }
+
   /**
    * The mode to spawn shards with for a {@link ShardingManager}. Can be either one of:
    * - 'process' to use child processes
