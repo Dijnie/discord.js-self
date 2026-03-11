@@ -20,17 +20,35 @@ module.exports = (client, { d: data }, shardId) => {
     client.guilds._add(guild);
   }
 
-  // Selfbot-only READY fields — store raw for later use by Phase 3+ features
+  // Selfbot-only READY fields
   if (data.private_channels) {
     client._selfbotPrivateChannels = data.private_channels;
   }
 
+  // Populate relationships manager
   if (data.relationships) {
-    client._selfbotRelationships = data.relationships;
+    for (const rel of data.relationships) {
+      client.relationships._add(rel);
+    }
   }
 
-  if (data.read_state) {
-    client._selfbotReadState = data.read_state;
+  // Populate notes manager
+  if (data.notes) {
+    for (const [userId, note] of Object.entries(data.notes)) {
+      client.notes._add(userId, note);
+    }
+  }
+
+  // Populate read states manager
+  if (data.read_state?.entries) {
+    for (const rs of data.read_state.entries) {
+      client.readStates._add(rs);
+    }
+  }
+
+  // Populate sessions manager
+  if (data.sessions) {
+    client.sessions._patch(data.sessions);
   }
 
   if (data.user_settings_proto !== undefined) {
@@ -39,10 +57,6 @@ module.exports = (client, { d: data }, shardId) => {
 
   if (data.user_guild_settings) {
     client._selfbotUserGuildSettings = data.user_guild_settings;
-  }
-
-  if (data.sessions) {
-    client._selfbotSessions = data.sessions;
   }
 
   // application may not be present for user accounts (selfbot)

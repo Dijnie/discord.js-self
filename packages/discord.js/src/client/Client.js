@@ -11,6 +11,10 @@ const { GatewayDispatchEvents, GatewayIntentBits, OAuth2Scopes, Routes } = requi
 const { DiscordjsError, DiscordjsTypeError, ErrorCodes } = require('../errors/index.js');
 const { ChannelManager } = require('../managers/ChannelManager.js');
 const { GuildManager } = require('../managers/GuildManager.js');
+const { NoteManager } = require('../managers/NoteManager.js');
+const { ReadStateManager } = require('../managers/ReadStateManager.js');
+const { RelationshipManager } = require('../managers/RelationshipManager.js');
+const { SessionManager } = require('../managers/SessionManager.js');
 const { UserManager } = require('../managers/UserManager.js');
 const { ShardClientUtil } = require('../sharding/ShardClientUtil.js');
 const { ClientPresence } = require('../structures/ClientPresence.js');
@@ -180,6 +184,34 @@ class Client extends AsyncEventEmitter {
      * @type {ChannelManager}
      */
     this.channels = new ChannelManager(this);
+
+    /**
+     * The relationships (friends, blocked users) for this selfbot user.
+     *
+     * @type {RelationshipManager}
+     */
+    this.relationships = new RelationshipManager(this);
+
+    /**
+     * The user notes manager for this selfbot user.
+     *
+     * @type {NoteManager}
+     */
+    this.notes = new NoteManager(this);
+
+    /**
+     * The active sessions manager for this selfbot user.
+     *
+     * @type {SessionManager}
+     */
+    this.sessions = new SessionManager(this);
+
+    /**
+     * The read states manager for this selfbot user.
+     *
+     * @type {ReadStateManager}
+     */
+    this.readStates = new ReadStateManager(this);
 
     /**
      * The sweeping functions and their intervals used to periodically sweep caches
