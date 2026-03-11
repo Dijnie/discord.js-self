@@ -37,15 +37,16 @@ export const CompressionParameterMap = {
  * Default options used by the manager
  */
 export const DefaultWebSocketManagerOptions = {
-	async buildIdentifyThrottler(manager: WebSocketManager) {
-		const info = await manager.fetchGatewayInformation();
-		return new SimpleIdentifyThrottler(info.session_start_limit.max_concurrency);
+	async buildIdentifyThrottler(_manager: WebSocketManager) {
+		// Selfbot: single shard, max_concurrency = 1
+		return new SimpleIdentifyThrottler(1);
 	},
 	buildStrategy: (manager) => new SimpleShardingStrategy(manager),
-	shardCount: null,
-	shardIds: null,
+	shardCount: 1,
+	shardIds: [0],
 	largeThreshold: null,
 	initialPresence: null,
+	superProperties: null,
 	identifyProperties: {
 		browser: DefaultDeviceProperty,
 		device: DefaultDeviceProperty,

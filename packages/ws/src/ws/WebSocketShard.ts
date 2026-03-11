@@ -11,7 +11,6 @@ import {
 	GatewayDispatchEvents,
 	GatewayOpcodes,
 	type GatewayDispatchPayload,
-	type GatewayIdentifyData,
 	type GatewayReadyDispatchData,
 	type GatewayReceivePayload,
 	type GatewaySendPayload,
@@ -25,6 +24,7 @@ import {
 	ImportantGatewayOpcodes,
 	getInitialSendRateLimitState,
 } from '../utils/constants.js';
+import { DEFAULT_CAPABILITIES } from '../utils/super-properties.js';
 import type { SessionInfo } from './WebSocketManager.js';
 
 /* eslint-disable promise/prefer-await-to-then */
@@ -547,31 +547,31 @@ export class WebSocketShard extends AsyncEventEmitter<WebSocketShardEventsMap> {
 		this.debug([
 			'Identifying',
 			`shard id: ${this.id.toString()}`,
-			`shard count: ${this.strategy.options.shardCount}`,
-			`intents: ${this.strategy.options.intents}`,
+			`capabilities: ${DEFAULT_CAPABILITIES}`,
 			`compression: ${this.transportCompressionEnabled ? CompressionParameterMap[this.strategy.options.compression!] : this.identifyCompressionEnabled ? 'identify' : 'none'}`,
 		]);
 
-		const data: GatewayIdentifyData = {
+		// Selfbot IDENTIFY — uses capabilities instead of intents, no shard array
+		const identifyData = {
 			token: this.strategy.options.token,
-			properties: this.strategy.options.identifyProperties,
-			intents: this.strategy.options.intents,
-			compress: this.identifyCompressionEnabled,
-			shard: [this.id, this.strategy.options.shardCount],
+			capabilities: DEFAULT_CAPABILITIES,
+			properties: this.strategy.options.superProperties ?? this.strategy.options.identifyProperties,
+			compress: false,
+			client_state: {
+				guild_versions: {},
+			},
+			presence: this.strategy.options.initialPresence ?? {
+				status: 'online',
+				activities: [],
+				afk: false,
+				since: null,
+			},
 		};
-
-		if (this.strategy.options.largeThreshold) {
-			data.large_threshold = this.strategy.options.largeThreshold;
-		}
-
-		if (this.strategy.options.initialPresence) {
-			data.presence = this.strategy.options.initialPresence;
-		}
 
 		await this.send({
 			op: GatewayOpcodes.Identify,
 			// eslint-disable-next-line id-length
-			d: data,
+			d: identifyData as any,
 		});
 
 		await this.waitForEvent(WebSocketShardEvents.Ready, this.strategy.options.readyTimeout);

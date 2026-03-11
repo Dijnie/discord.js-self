@@ -10,6 +10,7 @@ export type * from './throttling/IIdentifyThrottler.js';
 export * from './throttling/SimpleIdentifyThrottler.js';
 
 export * from './utils/constants.js';
+export * from './utils/super-properties.js';
 export * from './utils/WorkerBootstrapper.js';
 
 export * from './ws/WebSocketManager.js';
