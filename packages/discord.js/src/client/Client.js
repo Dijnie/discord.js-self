@@ -9,9 +9,13 @@ const { WebSocketManager, WebSocketShardEvents, WebSocketShardStatus } = require
 const { AsyncEventEmitter } = require('@vladfrangu/async_event_emitter');
 const { GatewayDispatchEvents, GatewayIntentBits, OAuth2Scopes, Routes } = require('discord-api-types/v10');
 const { DiscordjsError, DiscordjsTypeError, ErrorCodes } = require('../errors/index.js');
+const { AffinityManager } = require('../managers/AffinityManager.js');
+const { BillingManager } = require('../managers/BillingManager.js');
 const { ChannelManager } = require('../managers/ChannelManager.js');
 const { GuildManager } = require('../managers/GuildManager.js');
+const { LibraryManager } = require('../managers/LibraryManager.js');
 const { NoteManager } = require('../managers/NoteManager.js');
+const { OAuth2Manager } = require('../managers/OAuth2Manager.js');
 const { ReadStateManager } = require('../managers/ReadStateManager.js');
 const { RelationshipManager } = require('../managers/RelationshipManager.js');
 const { SessionManager } = require('../managers/SessionManager.js');
@@ -212,6 +216,34 @@ class Client extends AsyncEventEmitter {
      * @type {ReadStateManager}
      */
     this.readStates = new ReadStateManager(this);
+
+    /**
+     * The billing manager for this selfbot user.
+     *
+     * @type {BillingManager}
+     */
+    this.billing = new BillingManager(this);
+
+    /**
+     * The affinities manager for this selfbot user.
+     *
+     * @type {AffinityManager}
+     */
+    this.affinities = new AffinityManager(this);
+
+    /**
+     * The authorized OAuth2 apps manager for this selfbot user.
+     *
+     * @type {OAuth2Manager}
+     */
+    this.authorizedApps = new OAuth2Manager(this);
+
+    /**
+     * The game library manager for this selfbot user.
+     *
+     * @type {LibraryManager}
+     */
+    this.library = new LibraryManager(this);
 
     /**
      * The sweeping functions and their intervals used to periodically sweep caches
