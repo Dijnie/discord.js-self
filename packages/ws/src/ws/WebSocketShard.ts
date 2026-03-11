@@ -922,10 +922,10 @@ export class WebSocketShard extends AsyncEventEmitter<WebSocketShardEventsMap> {
 			}
 
 			case GatewayCloseCodes.AuthenticationFailed: {
+				// Code 4004 — token invalid or account banned/disabled
 				this.emit(
 					WebSocketShardEvents.Error,
-
-					new Error('Authentication failed'),
+					new Error('Authentication failed: token is invalid or account is banned/disabled (close code 4004)'),
 				);
 				return this.destroy({ code });
 			}
@@ -974,19 +974,19 @@ export class WebSocketShard extends AsyncEventEmitter<WebSocketShardEventsMap> {
 			}
 
 			case GatewayCloseCodes.InvalidIntents: {
+				// Code 4013 — invalid intents (selfbots use capabilities, not intents; this should not occur)
 				this.emit(
 					WebSocketShardEvents.Error,
-
-					new Error('Used invalid intents'),
+					new Error('Invalid intents (code 4013): selfbots use capabilities not intents — check IDENTIFY payload'),
 				);
 				return this.destroy({ code });
 			}
 
 			case GatewayCloseCodes.DisallowedIntents: {
+				// Code 4014 — disallowed intents (selfbots use capabilities, not intents; this should not occur)
 				this.emit(
 					WebSocketShardEvents.Error,
-
-					new Error('Used disallowed intents'),
+					new Error('Disallowed intents (code 4014): selfbots use capabilities not intents — check IDENTIFY payload'),
 				);
 				return this.destroy({ code });
 			}
