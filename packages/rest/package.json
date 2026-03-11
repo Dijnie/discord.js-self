@@ -1,8 +1,8 @@
 {
 	"$schema": "https://json.schemastore.org/package.json",
-	"name": "@discordjs/rest",
+	"name": "@selfbot.js/rest",
 	"version": "2.5.0",
-	"description": "The REST API for discord.js",
+	"description": "The REST API for selfbot.js",
 	"scripts": {
 		"test": "vitest run",
 		"build": "tsc --noEmit && tsup",
@@ -83,8 +83,8 @@
 	"homepage": "https://discord.js.org",
 	"funding": "https://github.com/discordjs/discord.js?sponsor",
 	"dependencies": {
-		"@discordjs/collection": "workspace:^",
-		"@discordjs/util": "workspace:^",
+		"@discordjs/collection": "^2.1.1",
+		"@discordjs/util": "^1.1.1",
 		"@sapphire/async-queue": "^1.5.5",
 		"@sapphire/snowflake": "^3.5.5",
 		"@vladfrangu/async_event_emitter": "^2.4.7",
@@ -95,9 +95,6 @@
 		"uuid": "^13.0.0"
 	},
 	"devDependencies": {
-		"@discordjs/api-extractor": "workspace:^",
-		"@discordjs/scripts": "workspace:^",
-		"@favware/cliff-jumper": "^6.0.0",
 		"@types/node": "^22.19.11",
 		"@vitest/coverage-v8": "^4.0.18",
 		"cross-env": "^10.1.0",

@@ -1,8 +1,8 @@
 {
 	"$schema": "https://json.schemastore.org/package.json",
-	"name": "@discordjs/structures",
+	"name": "@selfbot.js/structures",
 	"version": "0.1.0",
-	"description": "Wrapper around Discord's structures",
+	"description": "Structures for selfbot.js",
 	"scripts": {
 		"build": "tsc --noEmit && tsup",
 		"build:docs": "tsc -p tsconfig.docs.json && cpy \"./src/*.d.ts\" \"./dist-docs\"",
@@ -61,14 +61,11 @@
 	},
 	"homepage": "https://discord.js.org",
 	"dependencies": {
-		"@discordjs/formatters": "workspace:^",
+		"@discordjs/formatters": "^0.6.1",
 		"@sapphire/snowflake": "^3.5.5",
 		"discord-api-types": "^0.38.41"
 	},
 	"devDependencies": {
-		"@discordjs/api-extractor": "workspace:^",
-		"@discordjs/scripts": "workspace:^",
-		"@favware/cliff-jumper": "^6.0.0",
 		"@types/node": "^22.19.11",
 		"@vitest/coverage-v8": "^4.0.18",
 		"cpy-cli": "^6.0.0",
