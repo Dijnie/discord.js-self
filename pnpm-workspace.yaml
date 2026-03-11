@@ -4,6 +4,9 @@ packages:
   - packages/ws
   - packages/core
   - packages/structures
+  - packages/util
+  - packages/collection
+  - packages/formatters
 
 autoInstallPeers: false
 

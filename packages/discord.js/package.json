@@ -59,9 +59,9 @@
   "homepage": "https://discord.js.org",
   "funding": "https://github.com/discordjs/discord.js?sponsor",
   "dependencies": {
-    "@discordjs/collection": "^2.1.1",
-    "@discordjs/formatters": "^0.6.1",
-    "@discordjs/util": "^1.1.1",
+    "@discordjs/collection": "workspace:^",
+    "@discordjs/formatters": "workspace:^",
+    "@discordjs/util": "workspace:^",
     "@selfbot.js/rest": "workspace:^",
     "@selfbot.js/ws": "workspace:^",
     "@sapphire/snowflake": "3.5.5",

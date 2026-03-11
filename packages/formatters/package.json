@@ -1,8 +1,8 @@
 {
 	"$schema": "https://json.schemastore.org/package.json",
-	"name": "@selfbot.js/ws",
-	"version": "2.0.2",
-	"description": "Wrapper around Discord's gateway for selfbot.js",
+	"name": "@discordjs/formatters",
+	"version": "0.6.1",
+	"description": "A set of functions to format strings for Discord.",
 	"scripts": {
 		"test": "vitest run --config ../../vitest.config.ts",
 		"build": "tsc --noEmit && tsup",
@@ -11,7 +11,7 @@
 		"format": "prettier --write . && cross-env TIMING=1 eslint --fix --format=pretty src __tests__",
 		"docs": "pnpm run build:docs && api-extractor run --local --minify && generate-split-documentation",
 		"prepack": "pnpm run build && pnpm run lint",
-		"changelog": "git cliff --prepend ./CHANGELOG.md -u -c ./cliff.toml -r ../../ --include-path 'packages/ws/*'",
+		"changelog": "git cliff --prepend ./CHANGELOG.md -u -c ./cliff.toml -r ../../ --include-path 'packages/formatters/*'",
 		"release": "cliff-jumper"
 	},
 	"exports": {
@@ -23,16 +23,6 @@
 			"import": {
 				"types": "./dist/index.d.mts",
 				"default": "./dist/index.mjs"
-			}
-		},
-		"./defaultWorker": {
-			"require": {
-				"types": null,
-				"default": "./dist/defaultWorker.js"
-			},
-			"import": {
-				"types": null,
-				"default": "./dist/defaultWorker.mjs"
 			}
 		}
 	},
@@ -48,24 +38,16 @@
 	],
 	"contributors": [
 		"Crawl <icrawltogo@gmail.com>",
-		"Amish Shah <amishshah.2k@gmail.com>",
 		"SpaceEEC <spaceeec@yahoo.com>",
 		"Vlad Frangu <me@vladfrangu.dev>",
-		"Aura Román <kyradiscord@gmail.com>",
-		"DD <didinele.dev@gmail.com>"
+		"Aura Román <kyradiscord@gmail.com>"
 	],
 	"license": "Apache-2.0",
-	"keywords": [
-		"discord",
-		"api",
-		"gateway",
-		"discordapp",
-		"discordjs"
-	],
+	"keywords": [],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/discordjs/discord.js.git",
-		"directory": "packages/ws"
+		"directory": "packages/formatters"
 	},
 	"bugs": {
 		"url": "https://github.com/discordjs/discord.js/issues"
@@ -73,14 +55,7 @@
 	"homepage": "https://discord.js.org",
 	"funding": "https://github.com/discordjs/discord.js?sponsor",
 	"dependencies": {
-		"@discordjs/collection": "workspace:^",
-		"@discordjs/util": "workspace:^",
-		"@sapphire/async-queue": "^1.5.5",
-		"@types/ws": "^8.18.1",
-		"@vladfrangu/async_event_emitter": "^2.4.7",
-		"discord-api-types": "^0.38.41",
-		"tslib": "^2.8.1",
-		"ws": "^8.19.0"
+		"discord-api-types": "^0.38.41"
 	},
 	"devDependencies": {
 		"@types/node": "^22.19.11",
@@ -91,13 +66,11 @@
 		"eslint-config-neon": "^0.3.2",
 		"eslint-formatter-compact": "^9.0.1",
 		"eslint-formatter-pretty": "^7.0.0",
-		"mock-socket": "^9.3.1",
 		"prettier": "^3.8.1",
 		"tsup": "^8.5.1",
 		"turbo": "^2.8.10",
 		"typescript": "~5.9.3",
-		"vitest": "^4.0.18",
-		"zlib-sync": "^0.1.10"
+		"vitest": "^4.0.18"
 	},
 	"engines": {
 		"node": ">=22.12.0"

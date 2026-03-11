@@ -83,8 +83,8 @@
 	"homepage": "https://discord.js.org",
 	"funding": "https://github.com/discordjs/discord.js?sponsor",
 	"dependencies": {
-		"@discordjs/collection": "^2.1.1",
-		"@discordjs/util": "^1.1.1",
+		"@discordjs/collection": "workspace:^",
+		"@discordjs/util": "workspace:^",
 		"@sapphire/async-queue": "^1.5.5",
 		"@sapphire/snowflake": "^3.5.5",
 		"@vladfrangu/async_event_emitter": "^2.4.7",
