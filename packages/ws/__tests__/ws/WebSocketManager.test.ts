@@ -14,7 +14,6 @@ test('fetch gateway information', async () => {
 
 	const manager = new WebSocketManager({
 		token: 'A-Very-Fake-Token',
-		intents: 0,
 		fetchGatewayInformation,
 	});
 
@@ -43,45 +42,41 @@ test('fetch gateway information', async () => {
 });
 
 describe('get shard count', () => {
-	test('with shard count', async () => {
+	// Selfbot: user accounts are single-shard only, getShardCount() always returns 1
+	test('always returns 1 for selfbot', async () => {
 		const manager = new WebSocketManager({
 			token: 'A-Very-Fake-Token',
-			intents: 0,
+			async fetchGatewayInformation() {
+				return mockGatewayInformation;
+			},
+		});
+
+		expect(await manager.getShardCount()).toBe(1);
+	});
+
+	test('returns 1 even with shardCount option', async () => {
+		const manager = new WebSocketManager({
+			token: 'A-Very-Fake-Token',
 			shardCount: 2,
 			async fetchGatewayInformation() {
 				return mockGatewayInformation;
 			},
 		});
 
-		expect(await manager.getShardCount()).toBe(2);
+		expect(await manager.getShardCount()).toBe(1);
 	});
 
-	test('with shard ids array', async () => {
+	test('returns 1 even with shard ids', async () => {
 		const shardIds = [5, 9];
 		const manager = new WebSocketManager({
 			token: 'A-Very-Fake-Token',
-			intents: 0,
 			shardIds,
 			async fetchGatewayInformation() {
 				return mockGatewayInformation;
 			},
 		});
 
-		expect(await manager.getShardCount()).toBe(shardIds.at(-1)! + 1);
-	});
-
-	test('with shard id range', async () => {
-		const shardIds = { start: 5, end: 9 };
-		const manager = new WebSocketManager({
-			token: 'A-Very-Fake-Token',
-			intents: 0,
-			shardIds,
-			async fetchGatewayInformation() {
-				return mockGatewayInformation;
-			},
-		});
-
-		expect(await manager.getShardCount()).toBe(shardIds.end + 1);
+		expect(await manager.getShardCount()).toBe(1);
 	});
 });
 
@@ -90,26 +85,18 @@ test('update shard count', async () => {
 
 	const manager = new WebSocketManager({
 		token: 'A-Very-Fake-Token',
-		intents: 0,
 		shardCount: 2,
 		fetchGatewayInformation,
 	});
 
-	expect(await manager.getShardCount()).toBe(2);
-	expect(fetchGatewayInformation).not.toHaveBeenCalled();
-
-	fetchGatewayInformation.mockClear();
-
-	await manager.updateShardCount(3);
-	expect(await manager.getShardCount()).toBe(3);
-	expect(fetchGatewayInformation).toHaveBeenCalled();
+	// Selfbot always returns 1 regardless of shardCount option
+	expect(await manager.getShardCount()).toBe(1);
 });
 
 test('it handles passing in both shardIds and shardCount', async () => {
 	const shardIds = { start: 2, end: 3 };
 	const manager = new WebSocketManager({
 		token: 'A-Very-Fake-Token',
-		intents: 0,
 		shardIds,
 		shardCount: 4,
 		async fetchGatewayInformation() {
@@ -117,7 +104,8 @@ test('it handles passing in both shardIds and shardCount', async () => {
 		},
 	});
 
-	expect(await manager.getShardCount()).toBe(4);
+	// Selfbot: shard count is always 1, but shardIds still resolve correctly
+	expect(await manager.getShardCount()).toBe(1);
 	expect(await manager.getShardIds()).toStrictEqual([2, 3]);
 });
 
@@ -140,7 +128,6 @@ test('strategies', async () => {
 
 	const manager = new WebSocketManager({
 		token: 'A-Very-Fake-Token',
-		intents: 0,
 		shardIds,
 		async fetchGatewayInformation() {
 			return mockGatewayInformation;

@@ -185,8 +185,8 @@ test('getAuth', async () => {
 		)
 		.times(5);
 
-	// default
-	expect(await api.get('/getAuth')).toStrictEqual({ auth: 'Bot A-Very-Fake-Token' });
+	// default — selfbot uses raw token without "Bot " prefix
+	expect(await api.get('/getAuth')).toStrictEqual({ auth: 'A-Very-Fake-Token' });
 
 	// unauthorized
 	expect(
@@ -195,19 +195,19 @@ test('getAuth', async () => {
 		}),
 	).toStrictEqual({ auth: null });
 
-	// authorized
+	// authorized — selfbot uses raw token without "Bot " prefix
 	expect(
 		await api.get('/getAuth', {
 			auth: true,
 		}),
-	).toStrictEqual({ auth: 'Bot A-Very-Fake-Token' });
+	).toStrictEqual({ auth: 'A-Very-Fake-Token' });
 
-	// Custom Bot Auth
+	// Custom auth without prefix — selfbot default authPrefix is ''
 	expect(
 		await api.get('/getAuth', {
 			auth: { token: 'A-Very-Different-Fake-Token' },
 		}),
-	).toStrictEqual({ auth: 'Bot A-Very-Different-Fake-Token' });
+	).toStrictEqual({ auth: 'A-Very-Different-Fake-Token' });
 
 	// Custom Bearer Auth
 	expect(
