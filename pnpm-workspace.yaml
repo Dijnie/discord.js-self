@@ -3,7 +3,7 @@ packages:
   - packages/rest
   - packages/ws
   - packages/core
-  - packages/structures
+
   - packages/util
 
 
