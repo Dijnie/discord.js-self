@@ -9,6 +9,7 @@ import { CDN } from './CDN.js';
 import { BurstHandler } from './handlers/BurstHandler.js';
 import { SequentialHandler } from './handlers/SequentialHandler.js';
 import type { IHandler } from './interfaces/Handler.js';
+import { generateClientHints } from './utils/browser-headers.js';
 import {
 	AUTH_UUID_NAMESPACE,
 	BurstHandlerMajorIdKey,
@@ -47,6 +48,12 @@ export class REST extends AsyncEventEmitter<RestEvents> {
 	 * Set via {@link REST.setSuperProperties}.
 	 */
 	public superProperties: Record<string, unknown> | null = null;
+
+	/**
+	 * Dynamic client hint headers (Sec-CH-UA, Sec-CH-UA-Mobile, Sec-CH-UA-Platform).
+	 * Set via {@link REST.setClientHints}.
+	 */
+	private clientHints: Record<string, string> | null = null;
 
 	public readonly cdn: CDN;
 
@@ -252,6 +259,16 @@ export class REST extends AsyncEventEmitter<RestEvents> {
 	}
 
 	/**
+	 * Generates and stores dynamic Sec-CH-UA client hint headers for the given Chrome major version.
+	 *
+	 * @param majorVersion - Chrome major version number
+	 */
+	public setClientHints(majorVersion: number) {
+		this.clientHints = generateClientHints(majorVersion);
+		return this;
+	}
+
+	/**
 	 * Queues a request to be sent
 	 *
 	 * @param request - All the information needed to make a request
@@ -353,10 +370,18 @@ export class REST extends AsyncEventEmitter<RestEvents> {
 		headers['Sec-Fetch-Dest'] = 'empty';
 		headers['Sec-Fetch-Mode'] = 'cors';
 		headers['Sec-Fetch-Site'] = 'same-origin';
-		headers['Sec-CH-UA'] = '"Not:A-Brand";v="24", "Chromium";v="136"';
-		headers['Sec-CH-UA-Mobile'] = '?0';
-		headers['Sec-CH-UA-Platform'] = '"Windows"';
+		// Use dynamic client hints if set, otherwise fall back to hardcoded defaults
+		if (this.clientHints) {
+			headers['Sec-CH-UA'] = this.clientHints['Sec-CH-UA']!;
+			headers['Sec-CH-UA-Mobile'] = this.clientHints['Sec-CH-UA-Mobile']!;
+			headers['Sec-CH-UA-Platform'] = this.clientHints['Sec-CH-UA-Platform']!;
+		} else {
+			headers['Sec-CH-UA'] = '"Not:A-Brand";v="24", "Chromium";v="136"';
+			headers['Sec-CH-UA-Mobile'] = '?0';
+			headers['Sec-CH-UA-Platform'] = '"Windows"';
+		}
 		headers['X-Discord-Locale'] = 'en-US';
+		headers['X-Discord-Timezone'] = Intl.DateTimeFormat().resolvedOptions().timeZone;
 		headers['X-Debug-Options'] = 'bugReporterEnabled';
 		headers['Priority'] = 'u=1, i';
 

@@ -4,6 +4,7 @@ export * from './lib/errors/HTTPError.js';
 export * from './lib/errors/RateLimitError.js';
 export type * from './lib/interfaces/Handler.js';
 export * from './lib/REST.js';
+export * from './lib/utils/browser-headers.js';
 export * from './lib/utils/constants.js';
 export * from './lib/utils/types.js';
 export { calculateUserDefaultAvatarIndex, makeURLSearchParams, parseResponse } from './lib/utils/utils.js';
