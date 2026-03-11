@@ -2,9 +2,9 @@
 
 const { setTimeout, clearTimeout } = require('node:timers');
 const { Collection } = require('@discordjs/collection');
-const { makeURLSearchParams } = require('@discordjs/rest');
+const { makeURLSearchParams } = require('@selfbot.js/rest');
 const { GatewayRateLimitError } = require('@discordjs/util');
-const { WebSocketShardEvents } = require('@discordjs/ws');
+const { WebSocketShardEvents } = require('@selfbot.js/ws');
 const { DiscordSnowflake } = require('@sapphire/snowflake');
 const { Routes, GatewayOpcodes, GatewayDispatchEvents } = require('discord-api-types/v10');
 const { DiscordjsError, DiscordjsTypeError, DiscordjsRangeError, ErrorCodes } = require('../errors/index.js');

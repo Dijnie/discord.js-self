@@ -1,8 +1,8 @@
 {
 	"$schema": "https://json.schemastore.org/package.json",
-	"name": "@discordjs/ws",
+	"name": "@selfbot.js/ws",
 	"version": "2.0.2",
-	"description": "Wrapper around Discord's gateway",
+	"description": "Wrapper around Discord's gateway for selfbot.js",
 	"scripts": {
 		"test": "vitest run --config ../../vitest.config.ts",
 		"build": "tsc --noEmit && tsup",
@@ -83,9 +83,6 @@
 		"ws": "^8.19.0"
 	},
 	"devDependencies": {
-		"@discordjs/api-extractor": "workspace:^",
-		"@discordjs/scripts": "workspace:^",
-		"@favware/cliff-jumper": "^6.0.0",
 		"@types/node": "^22.19.11",
 		"@vitest/coverage-v8": "^4.0.18",
 		"cross-env": "^10.1.0",

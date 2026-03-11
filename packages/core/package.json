@@ -1,8 +1,8 @@
 {
 	"$schema": "https://json.schemastore.org/package.json",
-	"name": "@discordjs/core",
+	"name": "@selfbot.js/core",
 	"version": "2.1.0",
-	"description": "A thinly abstracted wrapper around the rest API, and gateway.",
+	"description": "Core gateway/REST logic for selfbot.js",
 	"scripts": {
 		"test": "vitest run --config ../../vitest.config.ts",
 		"build": "tsc --noEmit && tsup",
@@ -65,17 +65,14 @@
 	"homepage": "https://discord.js.org",
 	"funding": "https://github.com/discordjs/discord.js?sponsor",
 	"dependencies": {
-		"@discordjs/rest": "workspace:^",
+		"@selfbot.js/rest": "workspace:^",
 		"@discordjs/util": "workspace:^",
-		"@discordjs/ws": "workspace:^",
+		"@selfbot.js/ws": "workspace:^",
 		"@sapphire/snowflake": "^3.5.5",
 		"@vladfrangu/async_event_emitter": "^2.4.7",
 		"discord-api-types": "^0.38.41"
 	},
 	"devDependencies": {
-		"@discordjs/api-extractor": "workspace:^",
-		"@discordjs/scripts": "workspace:^",
-		"@favware/cliff-jumper": "^6.0.0",
 		"@types/node": "^22.19.11",
 		"@vitest/coverage-v8": "^4.0.18",
 		"cross-env": "^10.1.0",

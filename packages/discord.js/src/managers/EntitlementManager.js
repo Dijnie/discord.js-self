@@ -1,7 +1,7 @@
 'use strict';
 
 const { Collection } = require('@discordjs/collection');
-const { makeURLSearchParams } = require('@discordjs/rest');
+const { makeURLSearchParams } = require('@selfbot.js/rest');
 const { Routes, EntitlementOwnerType } = require('discord-api-types/v10');
 const { ErrorCodes, DiscordjsTypeError } = require('../errors/index.js');
 const { Entitlement } = require('../structures/Entitlement.js');

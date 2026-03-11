@@ -56,7 +56,7 @@ export interface SessionInfo {
 export interface RequiredWebSocketManagerOptions {
 	/**
 	 * Function for retrieving the information returned by the `/gateway/bot` endpoint.
-	 * We recommend using a REST client that respects Discord's rate limits, such as `@discordjs/rest`.
+	 * We recommend using a REST client that respects Discord's rate limits, such as `@selfbot.js/rest`.
 	 *
 	 * @example
 	 * ```ts

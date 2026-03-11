@@ -23,7 +23,7 @@ export enum CompressionMethod {
 	ZstdNative,
 }
 
-export const DefaultDeviceProperty = `@discordjs/ws [VI]{{inject}}[/VI]` as `@discordjs/ws ${string}`;
+export const DefaultDeviceProperty = `@selfbot.js/ws [VI]{{inject}}[/VI]` as `@selfbot.js/ws ${string}`;
 
 const getDefaultSessionStore = lazy(() => new Collection<number, SessionInfo | null>());
 

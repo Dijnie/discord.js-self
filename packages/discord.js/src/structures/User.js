@@ -1,7 +1,7 @@
 'use strict';
 
 const { userMention } = require('@discordjs/formatters');
-const { calculateUserDefaultAvatarIndex } = require('@discordjs/rest');
+const { calculateUserDefaultAvatarIndex } = require('@selfbot.js/rest');
 const { DiscordSnowflake } = require('@sapphire/snowflake');
 const { _transformCollectibles } = require('../util/Transformers.js');
 const { UserFlagsBitField } = require('../util/UserFlagsBitField.js');
