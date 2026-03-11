@@ -1,12 +1,11 @@
 packages:
-  - packages/discord.js
+  - packages/bot
   - packages/rest
   - packages/ws
   - packages/core
   - packages/structures
   - packages/util
-  - packages/collection
-  - packages/formatters
+
 
 autoInstallPeers: false
 
