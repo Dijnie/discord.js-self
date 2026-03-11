@@ -1,7 +1,7 @@
 'use strict';
 
-const { DefaultRestOptions, DefaultUserAgentAppendix } = require('@discordjs/rest');
-const { DefaultWebSocketManagerOptions } = require('@discordjs/ws');
+const { DefaultRestOptions, DefaultUserAgentAppendix } = require('@selfbot.js/rest');
+const { DefaultWebSocketManagerOptions } = require('@selfbot.js/ws');
 const { version } = require('../../package.json');
 const { toSnakeCase } = require('./Transformers.js');
 
@@ -90,10 +90,15 @@ class Options extends null {
       failIfNotExists: true,
       enforceNonce: false,
       sweepers: this.DefaultSweeperSettings,
+      // Selfbot: no intents — use capabilities instead
+      intents: 0,
       ws: {
         ...DefaultWebSocketManagerOptions,
-        largeThreshold: 50,
+        // Selfbot: single shard only
+        shardCount: 1,
+        shardIds: [0],
         version: 10,
+        superProperties: null,
       },
       rest: {
         ...DefaultRestOptions,

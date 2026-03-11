@@ -1,7 +1,7 @@
 'use strict';
 
 const { Collection } = require('@discordjs/collection');
-const { makeURLSearchParams } = require('@discordjs/rest');
+const { makeURLSearchParams } = require('@selfbot.js/rest');
 const { DiscordSnowflake } = require('@sapphire/snowflake');
 const { ChannelType, GuildPremiumTier, Routes, GuildFeature } = require('discord-api-types/v10');
 const { DiscordjsError, DiscordjsTypeError, ErrorCodes } = require('../errors/index.js');

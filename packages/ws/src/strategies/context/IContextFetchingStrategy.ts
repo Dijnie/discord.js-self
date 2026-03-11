@@ -1,6 +1,5 @@
 import type { Awaitable } from '@discordjs/util';
-import type { APIGatewayBotInfo } from 'discord-api-types/v10';
-import type { SessionInfo, WebSocketManager, WebSocketManagerOptions } from '../../ws/WebSocketManager.js';
+import type { SessionInfo, SelfbotGatewayInfo, WebSocketManager, WebSocketManagerOptions } from '../../ws/WebSocketManager.js';
 
 export interface FetchingStrategyOptions extends Pick<
 	WebSocketManagerOptions,
@@ -10,14 +9,14 @@ export interface FetchingStrategyOptions extends Pick<
 	| 'helloTimeout'
 	| 'identifyProperties'
 	| 'initialPresence'
-	| 'intents'
 	| 'largeThreshold'
 	| 'readyTimeout'
+	| 'superProperties'
 	| 'token'
 	| 'useIdentifyCompression'
 	| 'version'
 > {
-	readonly gatewayInformation: APIGatewayBotInfo;
+	readonly gatewayInformation: SelfbotGatewayInfo;
 	readonly shardCount: number;
 }
 
@@ -44,9 +43,9 @@ export async function managerToFetchingStrategyOptions(manager: WebSocketManager
 		helloTimeout: manager.options.helloTimeout,
 		identifyProperties: manager.options.identifyProperties,
 		initialPresence: manager.options.initialPresence,
-		intents: manager.options.intents,
 		largeThreshold: manager.options.largeThreshold,
 		readyTimeout: manager.options.readyTimeout,
+		superProperties: manager.options.superProperties,
 		token: manager.token,
 		useIdentifyCompression: manager.options.useIdentifyCompression,
 		version: manager.options.version,

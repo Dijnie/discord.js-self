@@ -1,4 +1,4 @@
-import { REST } from '@discordjs/rest';
+import { REST } from '@selfbot.js/rest';
 import type {
 	APIActionRowComponent,
 	APIComponentInModalActionRow,

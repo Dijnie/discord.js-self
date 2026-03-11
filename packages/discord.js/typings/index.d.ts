@@ -3,9 +3,9 @@ import { ChildProcess } from 'node:child_process';
 import { Stream } from 'node:stream';
 import { MessagePort, Worker } from 'node:worker_threads';
 import { Collection, ReadonlyCollection } from '@discordjs/collection';
-import { BaseImageURLOptions, ImageURLOptions, RawFile, REST, RESTOptions, EmojiURLOptions } from '@discordjs/rest';
+import { BaseImageURLOptions, ImageURLOptions, RawFile, REST, RESTOptions, EmojiURLOptions } from '@selfbot.js/rest';
 import { Awaitable, FileBodyEncodable, JSONEncodable } from '@discordjs/util';
-import { WebSocketManager, WebSocketManagerOptions } from '@discordjs/ws';
+import { WebSocketManager, WebSocketManagerOptions } from '@selfbot.js/ws';
 import { AsyncEventEmitter } from '@vladfrangu/async_event_emitter';
 import {
   ActivityFlags,
@@ -7447,7 +7447,7 @@ export type InternalDiscordGatewayAdapterCreator = (
 // #endregion
 
 // External
-export * from '@discordjs/rest';
+export * from '@selfbot.js/rest';
 export * from '@discordjs/util';
-export * from '@discordjs/ws';
+export * from '@selfbot.js/ws';
 export * from 'discord-api-types/v10';

@@ -1,6 +1,6 @@
 'use strict';
 
-const { WebSocketShardEvents, CloseCodes } = require('@discordjs/ws');
+const { WebSocketShardEvents, CloseCodes } = require('@selfbot.js/ws');
 
 /**
  * Manages voice connections for the client

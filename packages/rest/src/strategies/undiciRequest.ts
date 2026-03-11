@@ -1,13 +1,24 @@
 import { Buffer } from 'node:buffer';
 import { STATUS_CODES } from 'node:http';
 import { types } from 'node:util';
-import { type RequestInit, request, Headers, FormData as UndiciFormData, Agent } from 'undici';
+import { type RequestInit, request, Headers, FormData as UndiciFormData, Agent, buildConnector } from 'undici';
 import type { HeaderRecord } from 'undici/types/header.js';
 import type { ResponseLike } from '../shared.js';
+import { CHROME_CIPHERS } from '../lib/utils/tls-config.js';
 
 export type RequestOptions = Exclude<Parameters<typeof request>[1], undefined>;
 
 let localAgent: Agent | null = null;
+
+function getLocalAgent(): Agent {
+	if (!localAgent) {
+		// Use Chrome-compatible TLS cipher suite to avoid detection
+		const connector = buildConnector({ ciphers: CHROME_CIPHERS });
+		localAgent = new Agent({ connect: connector });
+	}
+
+	return localAgent;
+}
 
 export async function makeRequest(url: string, init: RequestInit): Promise<ResponseLike> {
 	// The cast is necessary because `headers` and `method` are narrower types in `undici.request`
@@ -21,8 +32,7 @@ export async function makeRequest(url: string, init: RequestInit): Promise<Respo
 	// So we ensure that we always pass an Agent to request()
 	// https://github.com/nodejs/node/issues/59012
 	if (!options.dispatcher) {
-		localAgent ??= new Agent();
-		options.dispatcher = localAgent;
+		options.dispatcher = getLocalAgent();
 	}
 
 	const res = await request(url, options);

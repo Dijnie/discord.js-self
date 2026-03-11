@@ -1,7 +1,7 @@
 'use strict';
 
 const { Collection } = require('@discordjs/collection');
-const { makeURLSearchParams } = require('@discordjs/rest');
+const { makeURLSearchParams } = require('@selfbot.js/rest');
 const { GuildScheduledEventEntityType, Routes } = require('discord-api-types/v10');
 const { DiscordjsTypeError, DiscordjsError, ErrorCodes } = require('../errors/index.js');
 const { GuildScheduledEvent } = require('../structures/GuildScheduledEvent.js');

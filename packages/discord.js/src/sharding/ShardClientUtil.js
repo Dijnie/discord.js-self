@@ -3,7 +3,7 @@
 
 const process = require('node:process');
 const { calculateShardId } = require('@discordjs/util');
-const { WebSocketShardEvents } = require('@discordjs/ws');
+const { WebSocketShardEvents } = require('@selfbot.js/ws');
 const { DiscordjsError, DiscordjsTypeError, ErrorCodes } = require('../errors/index.js');
 const { Events } = require('../util/Events.js');
 const { makeError, makePlainError } = require('../util/Util.js');
@@ -14,6 +14,7 @@ const { makeError, makePlainError } = require('../util/Util.js');
  */
 class ShardClientUtil {
   constructor(client, mode) {
+    throw new Error('Sharding is not supported for selfbot accounts. User accounts are single-shard only.');
     /**
      * Client for the shard
      *

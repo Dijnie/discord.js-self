@@ -2,11 +2,8 @@ import type { Collection } from '@discordjs/collection';
 import { range, type Awaitable } from '@discordjs/util';
 import { AsyncEventEmitter } from '@vladfrangu/async_event_emitter';
 import type {
-	APIGatewayBotInfo,
 	GatewayIdentifyProperties,
 	GatewayPresenceUpdateData,
-	RESTGetAPIGatewayBotResult,
-	GatewayIntentBits,
 	GatewaySendPayload,
 	GatewayDispatchPayload,
 	GatewayReadyDispatchData,
@@ -51,12 +48,19 @@ export interface SessionInfo {
 }
 
 /**
+ * Minimal gateway info returned by /gateway (user accounts)
+ */
+export interface SelfbotGatewayInfo {
+	url: string;
+}
+
+/**
  * Required options for the WebSocketManager
  */
 export interface RequiredWebSocketManagerOptions {
 	/**
-	 * Function for retrieving the information returned by the `/gateway/bot` endpoint.
-	 * We recommend using a REST client that respects Discord's rate limits, such as `@discordjs/rest`.
+	 * Function for retrieving the gateway URL.
+	 * For selfbot (user accounts), this calls /gateway which returns only { url }.
 	 *
 	 * @example
 	 * ```ts
@@ -64,16 +68,12 @@ export interface RequiredWebSocketManagerOptions {
 	 * const manager = new WebSocketManager({
 	 *  token: process.env.DISCORD_TOKEN,
 	 *  fetchGatewayInformation() {
-	 *    return rest.get(Routes.gatewayBot()) as Promise<RESTGetAPIGatewayBotResult>;
+	 *    return rest.get(Routes.gateway()) as Promise<{ url: string }>;
 	 *  },
 	 * });
 	 * ```
 	 */
-	fetchGatewayInformation(): Awaitable<RESTGetAPIGatewayBotResult>;
-	/**
-	 * The intents to request
-	 */
-	intents: GatewayIntentBits | 0;
+	fetchGatewayInformation(): Awaitable<SelfbotGatewayInfo>;
 }
 
 /**
@@ -125,6 +125,10 @@ export interface OptionalWebSocketManagerOptions {
 	 * Properties to send to the gateway when identifying
 	 */
 	identifyProperties: GatewayIdentifyProperties;
+	/**
+	 * Super properties for selfbot browser-like identification (X-Super-Properties)
+	 */
+	superProperties: Record<string, unknown> | null;
 	/**
 	 * Initial presence data to send to the gateway when identifying
 	 */
@@ -231,10 +235,10 @@ export class WebSocketManager extends AsyncEventEmitter<ManagerShardEventsMap> i
 	public readonly options: Omit<WebSocketManagerOptions, 'token'>;
 
 	/**
-	 * Internal cache for a GET /gateway/bot result
+	 * Internal cache for a GET /gateway result
 	 */
 	private gatewayInformation: {
-		data: APIGatewayBotInfo;
+		data: SelfbotGatewayInfo;
 		expiresAt: number;
 	} | null = null;
 
@@ -295,8 +299,8 @@ export class WebSocketManager extends AsyncEventEmitter<ManagerShardEventsMap> i
 
 		const data = await this.options.fetchGatewayInformation();
 
-		// For single sharded bots session_start_limit.reset_after will be 0, use 5 seconds as a minimum expiration time
-		this.gatewayInformation = { data, expiresAt: Date.now() + (data.session_start_limit.reset_after || 5_000) };
+		// Cache for 5 minutes — /gateway doesn't include session_start_limit
+		this.gatewayInformation = { data, expiresAt: Date.now() + 300_000 };
 		return this.gatewayInformation.data;
 	}
 
@@ -316,15 +320,10 @@ export class WebSocketManager extends AsyncEventEmitter<ManagerShardEventsMap> i
 	}
 
 	/**
-	 * Yields the total number of shards across for your bot, accounting for Discord recommendations
+	 * Yields the total number of shards — always 1 for selfbot (user accounts are single-shard)
 	 */
 	public async getShardCount(): Promise<number> {
-		if (this.options.shardCount) {
-			return this.options.shardCount;
-		}
-
-		const shardIds = await this.getShardIds();
-		return Math.max(...shardIds) + 1;
+		return 1;
 	}
 
 	/**
@@ -335,6 +334,7 @@ export class WebSocketManager extends AsyncEventEmitter<ManagerShardEventsMap> i
 			return this.shardIds;
 		}
 
+		// Selfbot: always single shard [0]
 		let shardIds: number[];
 		if (this.options.shardIds) {
 			if (Array.isArray(this.options.shardIds)) {
@@ -344,8 +344,7 @@ export class WebSocketManager extends AsyncEventEmitter<ManagerShardEventsMap> i
 				shardIds = [...range({ start, end: end + 1 })];
 			}
 		} else {
-			const data = await this.fetchGatewayInformation();
-			shardIds = [...range(this.options.shardCount ?? data.shards)];
+			shardIds = [0];
 		}
 
 		this.shardIds = shardIds;
@@ -353,21 +352,9 @@ export class WebSocketManager extends AsyncEventEmitter<ManagerShardEventsMap> i
 	}
 
 	public async connect() {
-		const shardCount = await this.getShardCount();
-		// Spawn shards and adjust internal state
+		// Selfbot: always 1 shard
+		const shardCount = 1;
 		await this.updateShardCount(shardCount);
-
-		const shardIds = await this.getShardIds();
-		const data = await this.fetchGatewayInformation();
-
-		if (data.session_start_limit.remaining < shardIds.length) {
-			throw new Error(
-				`Not enough sessions remaining to spawn ${shardIds.length} shards; only ${
-					data.session_start_limit.remaining
-				} remaining; resets at ${new Date(Date.now() + data.session_start_limit.reset_after).toISOString()}`,
-			);
-		}
-
 		await this.strategy.connect();
 	}
 
@@ -376,7 +363,8 @@ export class WebSocketManager extends AsyncEventEmitter<ManagerShardEventsMap> i
 			throw new Error('Token has already been set');
 		}
 
-		this.#token = token;
+		// Strip "Bot " or "Bearer " prefix if accidentally included — user tokens are raw
+		this.#token = token.replace(/^(?:Bot|Bearer)\s+/i, '');
 	}
 
 	public destroy(options?: Omit<WebSocketShardDestroyOptions, 'recover'>) {
