@@ -3,7 +3,7 @@
 const process = require('node:process');
 const { setTimeout, clearTimeout } = require('node:timers');
 const { Collection } = require('@discordjs/collection');
-const { makeURLSearchParams } = require('@discordjs/rest');
+const { makeURLSearchParams } = require('@selfbot.js/rest');
 const { GatewayOpcodes, Routes, RouteBases } = require('discord-api-types/v10');
 const { DiscordjsError, ErrorCodes } = require('../errors/index.js');
 const { ShardClientUtil } = require('../sharding/ShardClientUtil.js');

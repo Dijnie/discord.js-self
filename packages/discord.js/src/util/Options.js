@@ -1,7 +1,7 @@
 'use strict';
 
-const { DefaultRestOptions, DefaultUserAgentAppendix } = require('@discordjs/rest');
-const { DefaultWebSocketManagerOptions } = require('@discordjs/ws');
+const { DefaultRestOptions, DefaultUserAgentAppendix } = require('@selfbot.js/rest');
+const { DefaultWebSocketManagerOptions } = require('@selfbot.js/ws');
 const { version } = require('../../package.json');
 const { toSnakeCase } = require('./Transformers.js');
 
