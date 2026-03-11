@@ -90,10 +90,15 @@ class Options extends null {
       failIfNotExists: true,
       enforceNonce: false,
       sweepers: this.DefaultSweeperSettings,
+      // Selfbot: no intents — use capabilities instead
+      intents: 0,
       ws: {
         ...DefaultWebSocketManagerOptions,
-        largeThreshold: 50,
+        // Selfbot: single shard only
+        shardCount: 1,
+        shardIds: [0],
         version: 10,
+        superProperties: null,
       },
       rest: {
         ...DefaultRestOptions,

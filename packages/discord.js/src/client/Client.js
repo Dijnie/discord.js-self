@@ -4,6 +4,7 @@ const process = require('node:process');
 const { clearTimeout, setImmediate, setTimeout } = require('node:timers');
 const { Collection } = require('@discordjs/collection');
 const { REST, RESTEvents, makeURLSearchParams } = require('@selfbot.js/rest');
+const { fetchBuildNumber, fetchBrowserVersion, generateSuperProperties } = require('@selfbot.js/ws');
 const { WebSocketManager, WebSocketShardEvents, WebSocketShardStatus } = require('@selfbot.js/ws');
 const { AsyncEventEmitter } = require('@vladfrangu/async_event_emitter');
 const { GatewayDispatchEvents, GatewayIntentBits, OAuth2Scopes, Routes } = require('discord-api-types/v10');
@@ -205,8 +206,8 @@ class Client extends AsyncEventEmitter {
 
     const wsOptions = {
       ...this.options.ws,
-      intents: this.options.intents.bitfield,
-      fetchGatewayInformation: () => this.rest.get(Routes.gatewayBot()),
+      // Selfbot: use /gateway (not /gateway/bot), returns only { url }
+      fetchGatewayInformation: () => this.rest.get(Routes.gateway()),
       // Explicitly nulled to always be set using `setToken` in `login`
       token: null,
     };
@@ -312,12 +313,27 @@ class Client extends AsyncEventEmitter {
    */
   async login(token = this.token) {
     if (!token || typeof token !== 'string') throw new DiscordjsError(ErrorCodes.TokenInvalid);
-    this.token = token.replace(/^bot\s*/i, '');
+    // Strip any "Bot " or "Bearer " prefix — selfbot uses raw user token
+    this.token = token.replace(/^(?:Bot|Bearer)\s+/i, '');
 
     this.rest.setToken(this.token);
 
     this.emit(Events.Debug, `Provided token: ${this._censoredToken}`);
     this.emit(Events.Debug, 'Preparing to connect to the gateway...');
+
+    // Initialize super properties for browser-like identification
+    try {
+      const [buildNumber, browserVersion] = await Promise.all([fetchBuildNumber(), fetchBrowserVersion()]);
+      const superProperties = generateSuperProperties(buildNumber, browserVersion);
+
+      // Pass to REST (X-Super-Properties header) and WS (IDENTIFY payload)
+      this.rest.setSuperProperties(superProperties);
+      this.options.ws.superProperties = superProperties;
+
+      this.emit(Events.Debug, `Super properties initialized (build: ${buildNumber}, Chrome: ${browserVersion})`);
+    } catch (error) {
+      this.emit(Events.Debug, `Failed to initialize super properties: ${error?.message ?? error}`);
+    }
 
     this.ws.setToken(this.token);
 
@@ -820,11 +836,9 @@ class Client extends AsyncEventEmitter {
    * @private
    */
   _validateOptions(options = this.options) {
-    if (options.intents === undefined && options.ws?.intents === undefined) {
-      throw new DiscordjsTypeError(ErrorCodes.ClientMissingIntents);
-    } else {
-      options.intents = new IntentsBitField(options.intents ?? options.ws.intents).freeze();
-    }
+    // Selfbot: intents are not required — user accounts use capabilities instead
+    // Keep IntentsBitField for compatibility but default to 0
+    options.intents = new IntentsBitField(options.intents ?? options.ws?.intents ?? 0).freeze();
 
     if (typeof options.sweepers !== 'object' || options.sweepers === null) {
       throw new DiscordjsTypeError(ErrorCodes.ClientInvalidOption, 'sweepers', 'an object');
