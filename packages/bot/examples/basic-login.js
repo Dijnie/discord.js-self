@@ -10,4 +10,4 @@ client.on('ready', () => {
 
 client.on('debug', console.log);
 
-client.login(process.env.DISCORD_TOKEN);
+client.login(process.env.USER_TOKEN);

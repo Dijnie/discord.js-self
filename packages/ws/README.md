@@ -48,10 +48,10 @@ import { WebSocketManager, WebSocketShardEvents, CompressionMethod } from '@disc
 import { REST } from '@discordjs/rest';
 import type { RESTGetAPIGatewayBotResult } from 'discord-api-types/v10';
 
-const rest = new REST().setToken(process.env.DISCORD_TOKEN);
+const rest = new REST().setToken(process.env.USER_TOKEN);
 // This example will spawn Discord's recommended shard count, all under the current process.
 const manager = new WebSocketManager({
-	token: process.env.DISCORD_TOKEN,
+	token: process.env.USER_TOKEN,
 	intents: 0, // for no intents
 	fetchGatewayInformation() {
 		return rest.get(Routes.gatewayBot()) as Promise<RESTGetAPIGatewayBotResult>;
@@ -75,7 +75,7 @@ await manager.connect();
 ```ts
 // Spawn 4 shards
 const manager = new WebSocketManager({
-	token: process.env.DISCORD_TOKEN,
+	token: process.env.USER_TOKEN,
 	intents: 0,
 	shardCount: 4,
 	fetchGatewayInformation() {
@@ -88,7 +88,7 @@ const manager = new WebSocketManager({
 // Your bot will run 8 shards overall
 // This manager will only take care of 0, 2, 4, and 6
 const manager = new WebSocketManager({
-	token: process.env.DISCORD_TOKEN,
+	token: process.env.USER_TOKEN,
 	intents: 0,
 	shardCount: 8,
 	shardIds: [0, 2, 4, 6],
@@ -99,7 +99,7 @@ const manager = new WebSocketManager({
 
 // Alternatively, if your shards are consecutive, you can pass in a range
 const manager = new WebSocketManager({
-	token: process.env.DISCORD_TOKEN,
+	token: process.env.USER_TOKEN,
 	intents: 0,
 	shardCount: 8,
 	shardIds: {
@@ -120,9 +120,9 @@ You can also have the shards spawn in worker threads:
 import { WebSocketManager, WorkerShardingStrategy } from '@discordjs/ws';
 import { REST } from '@discordjs/rest';
 
-const rest = new REST().setToken(process.env.DISCORD_TOKEN);
+const rest = new REST().setToken(process.env.USER_TOKEN);
 const manager = new WebSocketManager({
-	token: process.env.DISCORD_TOKEN,
+	token: process.env.USER_TOKEN,
 	intents: 0,
 	shardCount: 6,
 	fetchGatewayInformation() {
@@ -141,9 +141,9 @@ const manager = new WebSocketManager({
 import { WebSocketManager, WorkerShardingStrategy } from '@discordjs/ws';
 import { REST } from '@discordjs/rest';
 
-const rest = new REST().setToken(process.env.DISCORD_TOKEN);
+const rest = new REST().setToken(process.env.USER_TOKEN);
 const manager = new WebSocketManager({
-	token: process.env.DISCORD_TOKEN,
+	token: process.env.USER_TOKEN,
 	intents: 0,
 	fetchGatewayInformation() {
 		return rest.get(Routes.gatewayBot()) as Promise<RESTGetAPIGatewayBotResult>;

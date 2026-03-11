@@ -50,10 +50,10 @@ import { REST } from '@discordjs/rest';
 import { WebSocketManager } from '@discordjs/ws';
 
 // Create REST and WebSocket managers directly
-const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
+const rest = new REST({ version: '10' }).setToken(process.env.USER_TOKEN);
 
 const gateway = new WebSocketManager({
-	token: process.env.DISCORD_TOKEN,
+	token: process.env.USER_TOKEN,
 	intents: GatewayIntentBits.GuildMessages | GatewayIntentBits.MessageContent,
 	fetchGatewayInformation: () => rest.get('/gateway/bot') as Promise<RESTGetAPIGatewayBotResult>,
 });

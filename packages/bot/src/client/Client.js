@@ -253,15 +253,15 @@ class Client extends AsyncEventEmitter {
     this.sweepers = new Sweepers(this, this.options.sweepers);
 
     Object.defineProperty(this, 'token', { writable: true });
-    if (!this.token && 'DISCORD_TOKEN' in process.env) {
+    if (!this.token && 'USER_TOKEN' in process.env) {
       /**
        * Authorization token for the logged in bot.
-       * If present, this defaults to `process.env.DISCORD_TOKEN` when instantiating the client
+       * If present, this defaults to `process.env.USER_TOKEN` when instantiating the client
        * <warn>This should be kept private at all times.</warn>
        *
        * @type {?string}
        */
-      this.token = process.env.DISCORD_TOKEN;
+      this.token = process.env.USER_TOKEN;
     } else if (this.options.ws.token) {
       this.token = this.options.ws.token;
     } else {

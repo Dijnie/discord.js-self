@@ -81,7 +81,7 @@ class Shard extends AsyncEventEmitter {
       SHARDING_MANAGER: true,
       SHARDS: this.id,
       SHARD_COUNT: this.manager.totalShards,
-      DISCORD_TOKEN: this.manager.token,
+      USER_TOKEN: this.manager.token,
     };
 
     /**

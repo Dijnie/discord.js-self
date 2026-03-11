@@ -29,4 +29,4 @@ client.on('relationshipRemove', (relationship) => {
   console.log(`Removed relationship: ${relationship.user?.tag ?? relationship.id}`);
 });
 
-client.login(process.env.DISCORD_TOKEN);
+client.login(process.env.USER_TOKEN);

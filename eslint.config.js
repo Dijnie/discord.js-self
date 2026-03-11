@@ -67,6 +67,7 @@ export default defineConfig(
 			'.git/',
 			'**/dist/',
 			'**/coverage/',
+			'examples/',
 		],
 	},
 	commonRuleset,

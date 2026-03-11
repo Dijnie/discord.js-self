@@ -64,9 +64,9 @@ export interface RequiredWebSocketManagerOptions {
 	 *
 	 * @example
 	 * ```ts
-	 * const rest = new REST().setToken(process.env.DISCORD_TOKEN);
+	 * const rest = new REST().setToken(process.env.USER_TOKEN);
 	 * const manager = new WebSocketManager({
-	 *  token: process.env.DISCORD_TOKEN,
+	 *  token: process.env.USER_TOKEN,
 	 *  fetchGatewayInformation() {
 	 *    return rest.get(Routes.gateway()) as Promise<{ url: string }>;
 	 *  },
@@ -89,9 +89,9 @@ export interface OptionalWebSocketManagerOptions {
 	 *
 	 * @example
 	 * ```ts
-	 * const rest = new REST().setToken(process.env.DISCORD_TOKEN);
+	 * const rest = new REST().setToken(process.env.USER_TOKEN);
 	 * const manager = new WebSocketManager({
-	 *  token: process.env.DISCORD_TOKEN,
+	 *  token: process.env.USER_TOKEN,
 	 *  intents: 0, // for no intents
 	 *  fetchGatewayInformation() {
 	 *    return rest.get(Routes.gatewayBot()) as Promise<RESTGetAPIGatewayBotResult>;
@@ -125,10 +125,6 @@ export interface OptionalWebSocketManagerOptions {
 	 * Properties to send to the gateway when identifying
 	 */
 	identifyProperties: GatewayIdentifyProperties;
-	/**
-	 * Super properties for selfbot browser-like identification (X-Super-Properties)
-	 */
-	superProperties: Record<string, unknown> | null;
 	/**
 	 * Initial presence data to send to the gateway when identifying
 	 */
@@ -182,6 +178,10 @@ export interface OptionalWebSocketManagerOptions {
 	 * ```
 	 */
 	shardIds: number[] | ShardRange | null;
+	/**
+	 * Super properties for selfbot browser-like identification (X-Super-Properties)
+	 */
+	superProperties: Record<string, unknown> | null;
 	/**
 	 * The token to use for identifying with the gateway
 	 *
@@ -364,7 +364,7 @@ export class WebSocketManager extends AsyncEventEmitter<ManagerShardEventsMap> i
 		}
 
 		// Strip "Bot " or "Bearer " prefix if accidentally included — user tokens are raw
-		this.#token = token.replace(/^(?:Bot|Bearer)\s+/i, '');
+		this.#token = token.replace(/^(?:bot|bearer)\s+/i, '');
 	}
 
 	public destroy(options?: Omit<WebSocketShardDestroyOptions, 'recover'>) {
