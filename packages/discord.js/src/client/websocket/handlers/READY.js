@@ -1,6 +1,8 @@
 'use strict';
 
+const { Collection } = require('@discordjs/collection');
 const { ClientApplication } = require('../../../structures/ClientApplication.js');
+const { Experiment } = require('../../../structures/Experiment.js');
 const { Status } = require('../../../util/Status.js');
 
 let ClientUser;
@@ -65,6 +67,15 @@ module.exports = (client, { d: data }, shardId) => {
       client.application._patch(data.application);
     } else {
       client.application = new ClientApplication(client, data.application);
+    }
+  }
+
+  // Store experiments
+  if (data.user_experiments) {
+    client.experiments = new Collection();
+    for (const exp of data.user_experiments) {
+      const experiment = new Experiment(client, exp);
+      client.experiments.set(experiment.hash, experiment);
     }
   }
 
