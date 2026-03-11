@@ -471,6 +471,26 @@ class User extends Base {
   }
 
   /**
+   * Fetches this user's full profile (selfbot only).
+   * Includes bio, pronouns, badges, mutual guilds, and connected accounts.
+   *
+   * @param {Object} [options={}] Options for the profile fetch
+   * @param {boolean} [options.mutualGuilds=true] Whether to include mutual guilds
+   * @param {boolean} [options.mutualFriends=false] Whether to include mutual friends
+   * @returns {Promise<Profile>}
+   */
+  async fetchProfile({ mutualGuilds = true, mutualFriends = false } = {}) {
+    const { Profile } = require('./Profile.js');
+    const data = await this.client.rest.get(`/users/${this.id}/profile`, {
+      query: new URLSearchParams({
+        with_mutual_guilds: String(mutualGuilds),
+        with_mutual_friends: String(mutualFriends),
+      }),
+    });
+    return new Profile(this.client, data);
+  }
+
+  /**
    * When concatenated with a string, this automatically returns the user's mention instead of the User object.
    *
    * @returns {string}
