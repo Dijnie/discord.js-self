@@ -37,7 +37,7 @@ export interface RESTOptions {
 	 *
 	 * @defaultValue `'Bot'`
 	 */
-	authPrefix: 'Bearer' | 'Bot';
+	authPrefix: '' | 'Bearer' | 'Bot';
 	/**
 	 * The cdn path
 	 *
@@ -358,6 +358,8 @@ export interface RequestHeaders {
 	Authorization?: string;
 	'User-Agent': string;
 	'X-Audit-Log-Reason'?: string;
+	// Browser-like headers for selfbot operation
+	[key: string]: string | undefined;
 }
 
 /**

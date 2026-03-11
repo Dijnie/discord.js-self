@@ -1,3 +1,4 @@
+import { Buffer } from 'node:buffer';
 import { Collection } from '@discordjs/collection';
 import { DiscordSnowflake } from '@sapphire/snowflake';
 import { AsyncEventEmitter } from '@vladfrangu/async_event_emitter';
@@ -40,6 +41,12 @@ export class REST extends AsyncEventEmitter<RestEvents> {
 	 * performed by this manager.
 	 */
 	public agent: Dispatcher | null = null;
+
+	/**
+	 * Super properties for selfbot browser-like identification.
+	 * Set via {@link REST.setSuperProperties}.
+	 */
+	public superProperties: Record<string, unknown> | null = null;
 
 	public readonly cdn: CDN;
 
@@ -229,8 +236,18 @@ export class REST extends AsyncEventEmitter<RestEvents> {
 	 *
 	 * @param token - The authorization token to use
 	 */
-	public setToken(token: string) {
+	public setToken(token: string | null) {
 		this.#token = token;
+		return this;
+	}
+
+	/**
+	 * Sets the super properties used for X-Super-Properties header (selfbot browser identification)
+	 *
+	 * @param props - Super properties object
+	 */
+	public setSuperProperties(props: Record<string, unknown>) {
+		this.superProperties = props;
 		return this;
 	}
 
@@ -314,15 +331,37 @@ export class REST extends AsyncEventEmitter<RestEvents> {
 		// If this request requires authorization (allowing non-"authorized" requests for webhooks)
 		if (request.auth !== false) {
 			if (typeof request.auth === 'object') {
-				headers.Authorization = `${request.auth.prefix ?? this.options.authPrefix} ${request.auth.token}`;
+				// Use raw token — selfbot accounts don't use "Bot " prefix
+				const prefix = request.auth.prefix ?? this.options.authPrefix;
+				headers.Authorization = prefix ? `${prefix} ${request.auth.token}` : request.auth.token;
 			} else {
 				// If we haven't received a token, throw an error
 				if (!this.#token) {
 					throw new Error('Expected token to be set for this request, but none was present');
 				}
 
-				headers.Authorization = `${this.options.authPrefix} ${this.#token}`;
+				// Raw token — no "Bot " prefix for user accounts
+				headers.Authorization = this.#token;
 			}
+		}
+
+		// Browser-like headers required for selfbot operation
+		headers['Accept'] = '*/*';
+		headers['Accept-Language'] = 'en-US';
+		headers['Origin'] = 'https://discord.com';
+		headers['Referer'] = 'https://discord.com/channels/@me';
+		headers['Sec-Fetch-Dest'] = 'empty';
+		headers['Sec-Fetch-Mode'] = 'cors';
+		headers['Sec-Fetch-Site'] = 'same-origin';
+		headers['Sec-CH-UA'] = '"Not:A-Brand";v="24", "Chromium";v="136"';
+		headers['Sec-CH-UA-Mobile'] = '?0';
+		headers['Sec-CH-UA-Platform'] = '"Windows"';
+		headers['X-Discord-Locale'] = 'en-US';
+		headers['X-Debug-Options'] = 'bugReporterEnabled';
+		headers['Priority'] = 'u=1, i';
+
+		if (this.superProperties) {
+			headers['X-Super-Properties'] = Buffer.from(JSON.stringify(this.superProperties)).toString('base64');
 		}
 
 		// If a reason was set, set its appropriate header
