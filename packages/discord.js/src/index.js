@@ -252,6 +252,24 @@ exports.WelcomeScreen = require('./structures/WelcomeScreen.js').WelcomeScreen;
 exports.Widget = require('./structures/Widget.js').Widget;
 exports.WidgetMember = require('./structures/WidgetMember.js').WidgetMember;
 
+// Selfbot structures
+exports.Experiment = require('./structures/Experiment.js').Experiment;
+exports.PrivateCall = require('./structures/PrivateCall.js').PrivateCall;
+exports.Profile = require('./structures/Profile.js').Profile;
+exports.ReadState = require('./structures/ReadState.js').ReadState;
+exports.Relationship = require('./structures/Relationship.js').Relationship;
+exports.Session = require('./structures/Session.js').Session;
+
+// Selfbot managers
+exports.AffinityManager = require('./managers/AffinityManager.js').AffinityManager;
+exports.BillingManager = require('./managers/BillingManager.js').BillingManager;
+exports.LibraryManager = require('./managers/LibraryManager.js').LibraryManager;
+exports.NoteManager = require('./managers/NoteManager.js').NoteManager;
+exports.OAuth2Manager = require('./managers/OAuth2Manager.js').OAuth2Manager;
+exports.ReadStateManager = require('./managers/ReadStateManager.js').ReadStateManager;
+exports.RelationshipManager = require('./managers/RelationshipManager.js').RelationshipManager;
+exports.SessionManager = require('./managers/SessionManager.js').SessionManager;
+
 // External
 __exportStar(require('discord-api-types/v10'), exports);
 __exportStar(require('@selfbot.js/rest'), exports);
