@@ -61,7 +61,7 @@
 	},
 	"homepage": "https://discord.js.org",
 	"dependencies": {
-		"@discordjs/formatters": "workspace:^",
+		"@discordjs/formatters": "^0.6.1",
 		"@sapphire/snowflake": "^3.5.5",
 		"discord-api-types": "^0.38.41"
 	},
