@@ -24,7 +24,8 @@ import {
 	ImportantGatewayOpcodes,
 	getInitialSendRateLimitState,
 } from '../utils/constants.js';
-import { DEFAULT_CAPABILITIES } from '../utils/super-properties.js';
+import { DEFAULT_CAPABILITIES } from '../utils/capabilities.js';
+import { getGatewayProperties } from '../utils/super-properties.js';
 import type { SessionInfo } from './WebSocketManager.js';
 
 /* eslint-disable promise/prefer-await-to-then */
@@ -133,6 +134,9 @@ export class WebSocketShard extends AsyncEventEmitter<WebSocketShardEventsMap> {
 	#status: WebSocketShardStatus = WebSocketShardStatus.Idle;
 
 	private identifyCompressionEnabled = false;
+
+	/** Last presence sent — re-used on re-identify so presence persists across reconnects */
+	private lastPresence: any = null;
 
 	/**
 	 * @privateRemarks
@@ -282,9 +286,20 @@ export class WebSocketShard extends AsyncEventEmitter<WebSocketShardEventsMap> {
 
 		this.debug([`Connecting to ${url}`]);
 
+		// Browser-like WS handshake headers required for selfbot operation
+		const wsHeaders = {
+			'Accept-Language': 'en-US,en;q=0.9',
+			'Accept-Encoding': 'gzip, deflate, br, zstd',
+			'Origin': 'https://discord.com',
+			'Sec-WebSocket-Extensions': 'permessage-deflate; client_max_window_bits',
+			'User-Agent': this.strategy.options.superProperties?.browser_user_agent as string ??
+				'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
+		};
+
 		const connection = new WebSocketConstructor(url, [], {
 			handshakeTimeout: this.strategy.options.handshakeTimeout ?? undefined,
-		});
+			headers: wsHeaders,
+		} as any);
 
 		connection.binaryType = 'arraybuffer';
 
@@ -551,21 +566,30 @@ export class WebSocketShard extends AsyncEventEmitter<WebSocketShardEventsMap> {
 			`compression: ${this.transportCompressionEnabled ? CompressionParameterMap[this.strategy.options.compression!] : this.identifyCompressionEnabled ? 'identify' : 'none'}`,
 		]);
 
+		// Determine presence: use stored last presence (reconnect), then initial, then default
+		const resolvedPresence = this.lastPresence ?? this.strategy.options.initialPresence ?? {
+			status: 'online',
+			activities: [],
+			afk: false,
+			since: null,
+		};
+
+		// Wrap super properties with gateway-specific fields (2.3)
+		const rawProps = this.strategy.options.superProperties ?? this.strategy.options.identifyProperties;
+		const properties = this.strategy.options.superProperties
+			? getGatewayProperties(rawProps as Record<string, unknown>)
+			: rawProps;
+
 		// Selfbot IDENTIFY — uses capabilities instead of intents, no shard array
 		const identifyData = {
 			token: this.strategy.options.token,
 			capabilities: DEFAULT_CAPABILITIES,
-			properties: this.strategy.options.superProperties ?? this.strategy.options.identifyProperties,
+			properties,
 			compress: false,
 			client_state: {
 				guild_versions: {},
 			},
-			presence: this.strategy.options.initialPresence ?? {
-				status: 'online',
-				activities: [],
-				afk: false,
-				since: null,
-			},
+			presence: resolvedPresence,
 		};
 
 		await this.send({
@@ -981,6 +1005,47 @@ export class WebSocketShard extends AsyncEventEmitter<WebSocketShardEventsMap> {
 				});
 			}
 		}
+	}
+
+	/**
+	 * Subscribes to a guild's real-time data (opcode 14).
+	 * Required for receiving member/typing/activity events in lazy guilds.
+	 */
+	public async guildSubscribe(guildId: string, options?: Record<string, any>): Promise<void> {
+		await this.send({
+			op: 14,
+			d: {
+				guild_id: guildId,
+				typing: true,
+				threads: true,
+				activities: true,
+				members: [],
+				channels: {},
+				thread_member_lists: [],
+				...options,
+			},
+		} as any);
+	}
+
+	/**
+	 * Bulk subscribes to multiple guilds (opcode 37).
+	 */
+	public async bulkGuildSubscribe(subscriptions: Record<string, any>): Promise<void> {
+		await this.send({
+			op: 37,
+			d: { subscriptions },
+		} as any);
+	}
+
+	/**
+	 * Sends a presence update and stores it so it can be re-sent on reconnect.
+	 */
+	public async updatePresence(presence: any): Promise<void> {
+		this.lastPresence = presence;
+		await this.send({
+			op: 3,
+			d: presence,
+		} as any);
 	}
 
 	private debug(messages: [string, ...string[]]) {

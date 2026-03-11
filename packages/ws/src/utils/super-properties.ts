@@ -1,10 +1,10 @@
 import { randomUUID } from 'node:crypto';
+import { DEFAULT_CAPABILITIES } from './capabilities.js';
+
+export { DEFAULT_CAPABILITIES };
 
 const FALLBACK_BUILD_NUMBER = 348_875;
 const FALLBACK_BROWSER_VERSION = 136;
-
-/** Discord capabilities bitfield for standard selfbot client features */
-export const DEFAULT_CAPABILITIES = 22_525; // 0x57FD
 
 export async function fetchBuildNumber(): Promise<number> {
 	try {
@@ -24,6 +24,19 @@ export async function fetchBrowserVersion(): Promise<number> {
 	} catch {
 		return FALLBACK_BROWSER_VERSION;
 	}
+}
+
+/**
+ * Wraps super properties with additional gateway-specific fields required for the IDENTIFY payload.
+ */
+export function getGatewayProperties(superProperties: Record<string, unknown>): Record<string, unknown> {
+	return {
+		...superProperties,
+		is_fast_connect: false,
+		latest_headless_tasks: [],
+		latest_headless_task_run_seconds_before: null,
+		gateway_connect_reasons: 'AppSkeleton',
+	};
 }
 
 export function generateSuperProperties(buildNumber: number, browserVersion: number): Record<string, unknown> {

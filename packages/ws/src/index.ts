@@ -9,6 +9,7 @@ export * from './strategies/sharding/WorkerShardingStrategy.js';
 export type * from './throttling/IIdentifyThrottler.js';
 export * from './throttling/SimpleIdentifyThrottler.js';
 
+export * from './utils/capabilities.js';
 export * from './utils/constants.js';
 export * from './utils/super-properties.js';
 export * from './utils/WorkerBootstrapper.js';
